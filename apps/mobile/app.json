@@ -1,0 +1,29 @@
+{
+  "expo": {
+    "name": "AutoCancel",
+    "slug": "autocancel-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#f8fcfe"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "app.autocancel.mobile"
+    },
+    "android": {
+      "package": "app.autocancel.mobile"
+    },
+    "plugins": ["expo-notifications"],
+    "extra": {
+      "eas": {
+        "projectId": "replace-with-eas-project-id"
+      }
+    }
+  }
+}

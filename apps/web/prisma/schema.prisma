@@ -1,0 +1,265 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum SubscriptionTier {
+  FREE
+  PREMIUM
+}
+
+enum TrialStatus {
+  ACTIVE
+  BILLING_SOON
+  CANCELLED
+  COMPLETED
+}
+
+enum ProviderType {
+  GOOGLE
+  MICROSOFT
+  IMAP
+}
+
+enum ConnectionStatus {
+  CONNECTED
+  DISCONNECTED
+  ERROR
+}
+
+enum NotificationChannel {
+  EMAIL
+  WEB_PUSH
+  MOBILE_PUSH
+}
+
+enum ReminderStatus {
+  PENDING
+  SENT
+  FAILED
+}
+
+enum DetectionReviewStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum MobilePlatform {
+  IOS
+  ANDROID
+}
+
+model User {
+  id                String                @id @default(cuid())
+  email             String                @unique
+  emailVerified     DateTime?
+  name              String?
+  image             String?
+  timezone          String                @default("America/Denver")
+  tier              SubscriptionTier      @default(FREE)
+  isDemo            Boolean               @default(false)
+  stripeCustomerId  String?               @unique
+  createdAt         DateTime              @default(now())
+  updatedAt         DateTime              @updatedAt
+
+  accounts          Account[]
+  sessions          Session[]
+  emailConnections  EmailConnection[]
+  trials            Trial[]
+  detections        DetectionCandidate[]
+  notificationEnds  NotificationEndpoint[]
+  billingSubs       BillingSubscription[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model EmailConnection {
+  id                     String           @id @default(cuid())
+  userId                 String
+  provider               ProviderType
+  emailAddress           String?
+  encryptedAccessToken   String
+  encryptedRefreshToken  String?
+  expiresAt              DateTime?
+  scopes                 String[]
+  status                 ConnectionStatus @default(CONNECTED)
+  host                   String?
+  port                   Int?
+  secure                 Boolean?
+  createdAt              DateTime         @default(now())
+  updatedAt              DateTime         @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  syncedMessages SyncedMessage[]
+
+  @@index([userId, provider])
+}
+
+model SyncedMessage {
+  id            String   @id @default(cuid())
+  connectionId  String
+  externalId    String
+  threadId      String?
+  internalDate  DateTime?
+  createdAt     DateTime @default(now())
+
+  connection EmailConnection @relation(fields: [connectionId], references: [id], onDelete: Cascade)
+
+  @@unique([connectionId, externalId])
+}
+
+model Trial {
+  id                    String      @id @default(cuid())
+  userId                String
+  serviceName           String
+  normalizedServiceKey  String
+  startDate             DateTime?
+  billingDate           DateTime
+  costAmount            Float?
+  costCurrency          String?
+  status                TrialStatus @default(ACTIVE)
+  sourceProvider        ProviderType
+  confidenceScore       Float
+  metadata              Json?
+  createdAt             DateTime    @default(now())
+  updatedAt             DateTime    @updatedAt
+
+  user          User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  events        TrialEvent[]
+  reminders     ReminderJob[]
+  notifications Notification[]
+
+  @@index([userId, status, billingDate])
+  @@unique([userId, normalizedServiceKey, billingDate])
+}
+
+model TrialEvent {
+  id         String   @id @default(cuid())
+  trialId    String
+  eventType  String
+  payload    Json?
+  createdAt  DateTime @default(now())
+
+  trial Trial @relation(fields: [trialId], references: [id], onDelete: Cascade)
+
+  @@index([trialId, createdAt])
+}
+
+model DetectionCandidate {
+  id             String                @id @default(cuid())
+  userId         String
+  provider       ProviderType
+  messageId      String
+  sender         String?
+  subject        String
+  snippet        String?
+  extractionJson Json
+  confidence     Float
+  reviewStatus   DetectionReviewStatus @default(PENDING)
+  createdAt      DateTime              @default(now())
+  reviewedAt     DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, reviewStatus, createdAt])
+  @@unique([userId, provider, messageId])
+}
+
+model NotificationEndpoint {
+  id              String                @id @default(cuid())
+  userId          String
+  channel         NotificationChannel
+  endpoint        String
+  auth            String?
+  p256dh          String?
+  mobilePlatform  MobilePlatform?
+  deviceLabel     String?
+  createdAt       DateTime              @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, channel, endpoint])
+}
+
+model ReminderJob {
+  id              String                @id @default(cuid())
+  trialId         String
+  channel         NotificationChannel
+  scheduledFor    DateTime
+  sentAt          DateTime?
+  status          ReminderStatus        @default(PENDING)
+  idempotencyKey  String                @unique
+  attempts        Int                   @default(0)
+  lastError       String?
+  createdAt       DateTime              @default(now())
+
+  trial Trial @relation(fields: [trialId], references: [id], onDelete: Cascade)
+
+  @@index([scheduledFor, status])
+}
+
+model Notification {
+  id             String              @id @default(cuid())
+  trialId        String
+  channel        NotificationChannel
+  reminderOffset String
+  sentAt         DateTime            @default(now())
+  payload        Json?
+
+  trial Trial @relation(fields: [trialId], references: [id], onDelete: Cascade)
+
+  @@index([trialId, sentAt])
+}
+
+model BillingSubscription {
+  id                   String   @id @default(cuid())
+  userId               String
+  stripeSubscriptionId String   @unique
+  status               String
+  currentPeriodEnd     DateTime?
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, status])
+}

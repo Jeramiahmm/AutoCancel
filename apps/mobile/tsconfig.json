@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@autocancel/shared": ["../../packages/shared/src/index.ts"],
+      "@autocancel/shared/*": ["../../packages/shared/src/*"]
+    }
+  },
+  "include": ["App.tsx", "**/*.ts", "**/*.tsx"]
+}

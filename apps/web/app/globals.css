@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sans: "Avenir Next", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --background: 200 36% 96%;
+  --foreground: 210 24% 12%;
+  --muted: 200 24% 90%;
+  --muted-foreground: 210 15% 38%;
+  --card: 0 0% 100%;
+  --card-foreground: 210 24% 12%;
+  --border: 197 18% 84%;
+  --input: 197 20% 86%;
+  --ring: 190 70% 45%;
+  --primary: 189 79% 38%;
+  --primary-foreground: 190 100% 97%;
+  --danger: 355 82% 56%;
+  --danger-foreground: 0 0% 98%;
+}
+
+* {
+  @apply border-border;
+}
+
+body {
+  @apply bg-background text-foreground antialiased;
+  background-image:
+    radial-gradient(circle at 10% 6%, rgba(132, 217, 232, 0.35), transparent 40%),
+    radial-gradient(circle at 82% 12%, rgba(171, 234, 201, 0.24), transparent 34%),
+    radial-gradient(circle at 42% 88%, rgba(142, 196, 238, 0.22), transparent 36%),
+    linear-gradient(180deg, #f8fcfe 0%, #f2f7fa 32%, #f8fcfe 100%);
+  min-height: 100vh;
+}
+
+.noise::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.88' numOctaves='2'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.07'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.62);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+}
+
+.section-title {
+  @apply font-semibold tracking-tight text-2xl md:text-3xl;
+}
+
+.metric-gradient {
+  background: linear-gradient(120deg, #0c7d8d 0%, #258d64 55%, #7f9de4 100%);
+  -webkit-background-clip: text;
+  color: transparent;
+}
