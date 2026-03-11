@@ -12,12 +12,6 @@
     "paths": {
       "@/*": [
         "./*"
-      ],
-      "@autocancel/shared": [
-        "../../packages/shared/src/index.ts"
-      ],
-      "@autocancel/shared/*": [
-        "../../packages/shared/src/*"
       ]
     },
     "jsx": "preserve"

@@ -1,4 +1,4 @@
-import { TrialPatchInputSchema } from "@autocancel/shared";
+import { TrialPatchInputSchema } from "@/src/shared/contracts";
 import { handleApiError, ok } from "@/src/lib/api";
 import { requireUserId } from "@/src/lib/require-user";
 import { updateTrial } from "@/src/server/services/trial-service";

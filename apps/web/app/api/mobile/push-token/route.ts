@@ -1,4 +1,4 @@
-import { MobilePushTokenInputSchema } from "@autocancel/shared";
+import { MobilePushTokenInputSchema } from "@/src/shared/contracts";
 import { handleApiError, ok } from "@/src/lib/api";
 import { requireUserId } from "@/src/lib/require-user";
 import { prisma } from "@/src/server/db";

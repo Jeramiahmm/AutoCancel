@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import type { TrialCard } from "@autocancel/shared";
+import type { TrialCard } from "@/src/shared/contracts";
 import { Bell, CalendarClock, RefreshCw, Shield, Sparkles, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";

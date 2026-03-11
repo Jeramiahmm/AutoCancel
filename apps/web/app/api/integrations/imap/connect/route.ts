@@ -1,4 +1,4 @@
-import { ImapConnectInputSchema } from "@autocancel/shared";
+import { ImapConnectInputSchema } from "@/src/shared/contracts";
 import { handleApiError, ok } from "@/src/lib/api";
 import { requireUserId } from "@/src/lib/require-user";
 import { connectImapProvider } from "@/src/server/services/integration-service";

@@ -1,5 +1,5 @@
 import OpenAI from "openai";
-import { TrialExtractionSchema, type TrialExtraction } from "@autocancel/shared";
+import { TrialExtractionSchema, type TrialExtraction } from "@/src/shared/contracts";
 import { env, hasOpenAi } from "@/src/lib/env";
 import { parseByRules } from "@/src/server/services/rule-parser";
 

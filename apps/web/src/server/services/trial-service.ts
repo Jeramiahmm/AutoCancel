@@ -4,7 +4,7 @@ import { scheduleReminderJobs } from "@/src/server/services/reminder-service";
 import { getDaysRemaining, normalizeServiceName } from "@/src/server/services/time";
 import type { Prisma } from "@prisma/client";
 import type { TrialStatus } from "@prisma/client";
-import type { TrialPatchInput } from "@autocancel/shared";
+import type { TrialPatchInput } from "@/src/shared/contracts";
 
 const FREE_PLAN_LIMIT = 3;
 

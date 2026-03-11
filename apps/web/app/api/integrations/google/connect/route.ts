@@ -1,4 +1,4 @@
-import { IntegrationConnectInputSchema } from "@autocancel/shared";
+import { IntegrationConnectInputSchema } from "@/src/shared/contracts";
 import { handleApiError, ok } from "@/src/lib/api";
 import { requireUserId } from "@/src/lib/require-user";
 import { connectProvider } from "@/src/server/services/integration-service";
