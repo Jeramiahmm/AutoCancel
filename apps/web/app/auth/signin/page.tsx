@@ -1,15 +1,8 @@
-import { redirect } from "next/navigation";
 import { Lock, ShieldCheck, Sparkles } from "lucide-react";
-import { getAuthSession } from "@/src/lib/auth";
 import { hasEmailMagicLink, hasGoogleOAuth, isDemoModeEnabled } from "@/src/lib/env";
 import { SignInCard } from "@/components/marketing/sign-in-card";
 
 export default async function SignInPage() {
-  const session = await getAuthSession();
-  if (session?.user?.id) {
-    redirect("/dashboard");
-  }
-
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#0A0A0A] text-white [--background:220_10%_4%] [--foreground:0_0%_98%] [--muted:220_10%_12%] [--muted-foreground:220_8%_70%] [--card:220_11%_8%] [--card-foreground:0_0%_96%] [--border:220_10%_20%] [--input:220_10%_22%] [--ring:220_100%_68%] [--primary:217_100%_62%] [--primary-foreground:0_0%_100%]">
       <div className="pointer-events-none absolute inset-0">

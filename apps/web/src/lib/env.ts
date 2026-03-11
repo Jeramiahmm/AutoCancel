@@ -1,5 +1,14 @@
 import { z } from "zod";
 
+const inferredBaseUrl =
+  process.env.NEXTAUTH_URL ||
+  process.env.AUTH_URL ||
+  process.env.APP_BASE_URL ||
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
+
+const inferredAuthSecret =
+  process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET || "demo-only-insecure-secret-change-me-123456789";
+
 const emptyToUndefined = (value: unknown) => {
   if (typeof value === "string" && value.trim() === "") {
     return undefined;
@@ -26,16 +35,15 @@ const envSchema = z.object({
   NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
   DEMO_MODE: boolFromString.default(true),
 
-  NEXTAUTH_URL: z.preprocess(emptyToUndefined, z.string().url().optional()),
-  NEXTAUTH_SECRET: z.preprocess(
-    emptyToUndefined,
-    z.string().default("demo-only-insecure-secret-change-me-123456789"),
-  ),
+  AUTH_URL: z.preprocess(emptyToUndefined, z.string().url().optional()),
+  NEXTAUTH_URL: z.preprocess(emptyToUndefined, z.string().url().default(inferredBaseUrl)),
+  AUTH_SECRET: z.preprocess(emptyToUndefined, z.string().optional()),
+  NEXTAUTH_SECRET: z.preprocess(emptyToUndefined, z.string().default(inferredAuthSecret)),
   DATABASE_URL: z.preprocess(
     emptyToUndefined,
     z.string().url().default("postgresql://postgres:postgres@localhost:5432/autocancel"),
   ),
-  APP_BASE_URL: z.preprocess(emptyToUndefined, z.string().url().default("http://localhost:3000")),
+  APP_BASE_URL: z.preprocess(emptyToUndefined, z.string().url().default(inferredBaseUrl)),
 
   GOOGLE_CLIENT_ID: z.preprocess(emptyToUndefined, z.string().optional()),
   GOOGLE_CLIENT_SECRET: z.preprocess(emptyToUndefined, z.string().optional()),
