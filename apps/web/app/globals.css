@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --font-sans: "Avenir Next", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --font-sans: "Satoshi", "General Sans", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
+  --font-display: "Canela", "Noe Display", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
   --background: 200 36% 96%;
   --foreground: 210 24% 12%;
   --muted: 200 24% 90%;
@@ -57,4 +57,22 @@ body {
   background: linear-gradient(120deg, #0c7d8d 0%, #258d64 55%, #7f9de4 100%);
   -webkit-background-clip: text;
   color: transparent;
+}
+
+.cta-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-140%);
+  background: linear-gradient(120deg, transparent 20%, rgba(255, 255, 255, 0.38) 46%, transparent 72%);
+  transition: transform 650ms ease;
+}
+
+.cta-shimmer:hover::after {
+  transform: translateX(140%);
 }

@@ -80,14 +80,14 @@ export function SignInCard({
   }
 
   return (
-    <Card className="w-full border-white/60 bg-white/80 shadow-glow backdrop-blur-lg">
+    <Card className="w-full border-white/15 bg-white/[0.04] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.22),0_24px_60px_-30px_rgba(0,0,0,0.85)] backdrop-blur-xl">
       <CardHeader>
         <CardTitle className="text-2xl [font-family:var(--font-display)]">Welcome to AutoCancel</CardTitle>
-        <p className="text-sm text-muted-foreground">Secure by design, no email passwords required.</p>
+        <p className="text-sm text-white/65">Secure by design, no email passwords required.</p>
       </CardHeader>
       <CardContent className="space-y-5">
         {demoEnabled ? (
-          <Button className="w-full" size="lg" onClick={onDemoSignIn} disabled={pending}>
+          <Button className="cta-shimmer w-full rounded-full border border-white/10 shadow-[0_10px_34px_-14px_rgba(95,135,255,0.78)]" size="lg" onClick={onDemoSignIn} disabled={pending}>
             {pending ? "Opening demo..." : "Try Demo"}
           </Button>
         ) : null}
@@ -114,20 +114,20 @@ export function SignInCard({
         ) : null}
 
         {!emailEnabled && !googleEnabled && !demoEnabled ? (
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-white/65">
             No authentication provider is configured. Enable Demo Mode or configure OAuth/SMTP env vars.
           </p>
         ) : null}
 
-        {notice ? <p className="text-sm text-muted-foreground">{notice}</p> : null}
+        {notice ? <p className="text-sm text-white/70">{notice}</p> : null}
 
-        <div className="grid gap-2 rounded-xl border border-white/70 bg-white/70 p-3 text-xs text-muted-foreground">
+        <div className="grid gap-2 rounded-xl border border-white/15 bg-white/[0.03] p-3 text-xs text-white/70">
           <p className="inline-flex items-center gap-2">
-            <ShieldCheck className="size-3.5 text-primary" />
+            <ShieldCheck className="size-3.5 text-white/90" />
             OAuth-only access and encrypted token storage
           </p>
           <p className="inline-flex items-center gap-2">
-            <CheckCircle2 className="size-3.5 text-primary" />
+            <CheckCircle2 className="size-3.5 text-white/90" />
             Demo mode requires no external keys
           </p>
         </div>
