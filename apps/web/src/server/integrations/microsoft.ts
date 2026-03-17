@@ -28,6 +28,11 @@ export async function exchangeMicrosoftCode(code: string, redirectUri: string) {
   });
 
   if (!res.ok) {
+    const errorBody = await res.text();
+    console.error("[oauth.microsoft.exchange_failed]", {
+      status: res.status,
+      body: errorBody.slice(0, 240),
+    });
     throw new Error(`Microsoft token exchange failed: ${res.status}`);
   }
 

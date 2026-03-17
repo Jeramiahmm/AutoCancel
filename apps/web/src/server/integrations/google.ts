@@ -26,6 +26,11 @@ export async function exchangeGoogleCode(code: string, redirectUri: string) {
   });
 
   if (!res.ok) {
+    const errorBody = await res.text();
+    console.error("[oauth.google.exchange_failed]", {
+      status: res.status,
+      body: errorBody.slice(0, 240),
+    });
     throw new Error(`Google token exchange failed: ${res.status}`);
   }
 

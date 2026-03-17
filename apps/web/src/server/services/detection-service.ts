@@ -6,7 +6,6 @@ import { fetchImapTrialEmails } from "@/src/server/integrations/imap";
 import { parseTrialFromEmail } from "@/src/server/services/ai-parser";
 import { scoreKeywordMatch } from "@/src/server/services/keyword-detector";
 import { createOrMergeTrial } from "@/src/server/services/trial-service";
-import { simulateDemoSync } from "@/src/server/services/demo-service";
 import type { ProviderType } from "@prisma/client";
 
 const AUTO_APPROVE_THRESHOLD = 0.78;
@@ -28,15 +27,6 @@ function clampConfidence(value: number) {
 }
 
 export async function syncInboxForUser(userId: string, provider?: ProviderType) {
-  const user = await prisma.user.findUnique({
-    where: { id: userId },
-    select: { isDemo: true },
-  });
-
-  if (user?.isDemo) {
-    return simulateDemoSync(userId);
-  }
-
   const connections = await prisma.emailConnection.findMany({
     where: {
       userId,

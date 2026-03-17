@@ -5,12 +5,12 @@ const prisma = new PrismaClient();
 
 async function main() {
   const user = await prisma.user.upsert({
-    where: { email: "demo@autocancel.app" },
+    where: { email: "founder@autocancel.app" },
     update: {},
     create: {
-      email: "demo@autocancel.app",
+      email: "founder@autocancel.app",
       timezone: "America/Denver",
-      name: "Demo User",
+      name: "AutoCancel Founder",
     },
   });
 

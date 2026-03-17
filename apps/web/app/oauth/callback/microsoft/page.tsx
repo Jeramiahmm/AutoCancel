@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { toAuthErrorCode } from "@/src/lib/auth-errors";
 import { requireAuth } from "@/src/lib/auth-guard";
 import { env } from "@/src/lib/env";
 import { connectProvider } from "@/src/server/services/integration-service";
@@ -19,11 +20,16 @@ export default async function MicrosoftCallbackPage({
     redirect("/dashboard?connect_error=missing_code");
   }
 
-  await connectProvider("MICROSOFT", {
-    userId: session.user.id,
-    code: params.code,
-    redirectUri: `${env.APP_BASE_URL}/oauth/callback/microsoft`,
-  });
+  try {
+    await connectProvider("MICROSOFT", {
+      userId: session.user.id,
+      code: params.code,
+      redirectUri: `${env.APP_BASE_URL}/oauth/callback/microsoft`,
+    });
+  } catch (error) {
+    const code = toAuthErrorCode(error, "oauth_callback_failed");
+    redirect(`/dashboard?connect_error=${encodeURIComponent(code)}`);
+  }
 
   redirect("/dashboard?connected=microsoft");
 }

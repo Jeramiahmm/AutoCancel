@@ -3,19 +3,19 @@
 @tailwind utilities;
 
 :root {
-  --font-sans: "Satoshi", "General Sans", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
-  --font-display: "Canela", "Noe Display", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
-  --background: 200 36% 96%;
-  --foreground: 210 24% 12%;
-  --muted: 200 24% 90%;
-  --muted-foreground: 210 15% 38%;
-  --card: 0 0% 100%;
-  --card-foreground: 210 24% 12%;
-  --border: 197 18% 84%;
-  --input: 197 20% 86%;
-  --ring: 190 70% 45%;
-  --primary: 189 79% 38%;
-  --primary-foreground: 190 100% 97%;
+  --font-sans: "Inter", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
+  --font-display: "Playfair Display", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --background: 0 0% 2%;
+  --foreground: 0 0% 98%;
+  --muted: 220 10% 12%;
+  --muted-foreground: 220 8% 70%;
+  --card: 220 11% 8%;
+  --card-foreground: 0 0% 98%;
+  --border: 0 0% 100% / 0.12;
+  --input: 220 10% 22%;
+  --ring: 217 100% 62%;
+  --primary: 217 100% 62%;
+  --primary-foreground: 0 0% 100%;
   --danger: 355 82% 56%;
   --danger-foreground: 0 0% 98%;
 }
@@ -26,11 +26,8 @@
 
 body {
   @apply bg-background text-foreground antialiased;
-  background-image:
-    radial-gradient(circle at 10% 6%, rgba(132, 217, 232, 0.35), transparent 40%),
-    radial-gradient(circle at 82% 12%, rgba(171, 234, 201, 0.24), transparent 34%),
-    radial-gradient(circle at 42% 88%, rgba(142, 196, 238, 0.22), transparent 36%),
-    linear-gradient(180deg, #f8fcfe 0%, #f2f7fa 32%, #f8fcfe 100%);
+  font-family: var(--font-sans);
+  background: #030303;
   min-height: 100vh;
 }
 
@@ -44,9 +41,9 @@ body {
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.62);
+  background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .section-title {

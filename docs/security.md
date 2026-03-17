@@ -7,7 +7,6 @@
 
 ## Auth and session
 - NextAuth database sessions + magic link and Google sign-in.
-- Demo credentials provider can be enabled/disabled with `DEMO_MODE`.
 - Protected APIs require authenticated session, except:
   - cron endpoints (Bearer `CRON_SECRET`)
   - mobile push token registration with short-lived JWT link token.

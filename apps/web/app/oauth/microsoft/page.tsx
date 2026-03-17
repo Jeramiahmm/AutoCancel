@@ -3,12 +3,17 @@ import { env, hasMicrosoftOAuth } from "@/src/lib/env";
 
 export default function MicrosoftOAuthStart() {
   if (!hasMicrosoftOAuth()) {
-    redirect("/dashboard?connect_error=microsoft_not_configured");
+    redirect("/dashboard?connect_error=oauth_not_configured");
+  }
+
+  const clientId = env.MICROSOFT_CLIENT_ID;
+  if (!clientId) {
+    redirect("/dashboard?connect_error=oauth_client_missing");
   }
 
   const redirectUri = `${env.APP_BASE_URL}/oauth/callback/microsoft`;
   const params = new URLSearchParams({
-    client_id: env.MICROSOFT_CLIENT_ID,
+    client_id: clientId,
     response_type: "code",
     redirect_uri: redirectUri,
     response_mode: "query",

@@ -18,8 +18,25 @@
 - Build command: `pnpm build`
 - Install command: `pnpm install`
 - Add all env vars from `.env.example`.
-- Set `DEMO_MODE=false` in production if you want to disable instant demo login.
+- Production auth requires:
+  - `NEXTAUTH_URL` (or `AUTH_URL`)
+  - `APP_BASE_URL` (recommended for OAuth provider-connect callback URLs)
+  - `NEXTAUTH_SECRET` (or `AUTH_SECRET`)
+  - `DATABASE_URL`
+  - At least one auth provider:
+    - Google OAuth: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`
+    - or magic link SMTP: `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `SMTP_FROM`
 - Add `CRON_SECRET` in Vercel env so cron requests include authorization.
+
+### Branch and environment behavior
+- `main` branch -> Production deployment.
+- Feature branches/PRs -> Preview deployments.
+- Set auth env vars in all three scopes in Vercel:
+  - Production
+  - Preview
+  - Development
+
+Without preview env vars, auth buttons may route to `/auth/error` by design.
 
 ## 4. Stripe webhook
 - Create webhook endpoint:
@@ -38,3 +55,13 @@
 - From repo root: `pnpm --filter @autocancel/mobile start`
 - Build with EAS once app identifiers and assets are configured.
 - Expo app registers push token via web-generated mobile link token.
+
+## 7. Google OAuth exact setup
+In Google Cloud Console OAuth client:
+- Authorized JavaScript origins:
+  - `https://<your-domain>`
+  - `https://<preview-domain>.vercel.app` (optional for preview testing)
+- Authorized redirect URIs:
+  - `https://<your-domain>/api/auth/callback/google`
+  - `https://<your-domain>/oauth/callback/google`
+  - preview equivalents if preview auth is required

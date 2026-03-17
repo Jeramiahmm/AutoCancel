@@ -27,14 +27,12 @@ export default async function AppLayout({ children }: { children: React.ReactNod
             <Button variant="ghost" asChild>
               <Link href="/review">Review</Link>
             </Button>
+            <Button variant="ghost" asChild>
+              <Link href="/settings">Settings</Link>
+            </Button>
             <LogoutButton />
           </nav>
         </header>
-        {session.user.isDemo ? (
-          <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
-            <strong>Demo Mode:</strong> You are viewing seeded sample data. Changes are local to this demo account.
-          </div>
-        ) : null}
         {children}
       </div>
     </div>

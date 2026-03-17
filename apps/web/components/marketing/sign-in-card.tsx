@@ -2,7 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { signIn } from "next-auth/react";
-import { CheckCircle2, ShieldCheck } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -10,73 +10,78 @@ import { Input } from "@/components/ui/input";
 export function SignInCard({
   emailEnabled,
   googleEnabled,
-  demoEnabled,
+  initialNotice,
 }: {
   emailEnabled: boolean;
   googleEnabled: boolean;
-  demoEnabled: boolean;
+  initialNotice?: string | null;
 }) {
   const [email, setEmail] = useState("");
   const [pending, setPending] = useState(false);
-  const [notice, setNotice] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(initialNotice ?? null);
+
+  function getProviderError(result?: { error?: string | null }) {
+    if (!result?.error) {
+      return null;
+    }
+
+    if (result.error === "OAuthSignin" || result.error === "OAuthCallback") {
+      return "OAuth could not start. Verify GOOGLE_CLIENT_ID/GOOGLE_CLIENT_SECRET and callback URLs.";
+    }
+
+    if (result.error === "Configuration") {
+      return "Authentication provider is not configured correctly.";
+    }
+
+    return result.error;
+  }
 
   async function onMagicLinkSubmit(event: FormEvent) {
     event.preventDefault();
     setPending(true);
     setNotice(null);
+    try {
+      const result = await signIn("email", {
+        email,
+        callbackUrl: "/dashboard",
+        redirect: false,
+      });
 
-    const result = await signIn("email", {
-      email,
-      callbackUrl: "/dashboard",
-      redirect: false,
-    });
+      if (result?.ok) {
+        setNotice("Check your inbox for your secure sign-in link.");
+        return;
+      }
 
-    setPending(false);
-
-    if (result?.ok) {
-      setNotice("Check your inbox for your secure sign-in link.");
-      return;
+      const providerError = getProviderError(result);
+      setNotice(providerError ?? "Unable to send magic link. Please check your email and try again.");
+    } catch (error) {
+      setNotice(error instanceof Error ? error.message : "Unable to send magic link right now.");
+    } finally {
+      setPending(false);
     }
-
-    setNotice("Unable to send magic link. Please check your email and try again.");
-  }
-
-  async function onDemoSignIn() {
-    setPending(true);
-    setNotice(null);
-
-    const result = await signIn("demo", {
-      callbackUrl: "/dashboard",
-      redirect: false,
-    });
-
-    setPending(false);
-
-    if (result?.url) {
-      window.location.href = result.url;
-      return;
-    }
-
-    setNotice("Demo sign-in is unavailable right now. Please refresh and try again.");
   }
 
   async function onGoogleSignIn() {
     setPending(true);
     setNotice(null);
+    try {
+      const result = await signIn("google", {
+        callbackUrl: "/dashboard",
+        redirect: false,
+      });
 
-    const result = await signIn("google", {
-      callbackUrl: "/dashboard",
-      redirect: false,
-    });
+      if (result?.url) {
+        window.location.href = result.url;
+        return;
+      }
 
-    setPending(false);
-
-    if (result?.url) {
-      window.location.href = result.url;
-      return;
+      const providerError = getProviderError(result);
+      setNotice(providerError ?? "Google sign-in failed to start. Please try again.");
+    } catch (error) {
+      setNotice(error instanceof Error ? error.message : "Google sign-in failed unexpectedly.");
+    } finally {
+      setPending(false);
     }
-
-    setNotice("Google sign-in failed to start. Please try again.");
   }
 
   return (
@@ -86,12 +91,6 @@ export function SignInCard({
         <p className="text-sm text-white/65">Secure by design, no email passwords required.</p>
       </CardHeader>
       <CardContent className="space-y-5">
-        {demoEnabled ? (
-          <Button className="cta-shimmer w-full rounded-full border border-white/10 shadow-[0_10px_34px_-14px_rgba(95,135,255,0.78)]" size="lg" onClick={onDemoSignIn} disabled={pending}>
-            {pending ? "Opening demo..." : "Try Demo"}
-          </Button>
-        ) : null}
-
         {emailEnabled ? (
           <form className="space-y-3" onSubmit={onMagicLinkSubmit}>
             <Input
@@ -113,9 +112,9 @@ export function SignInCard({
           </Button>
         ) : null}
 
-        {!emailEnabled && !googleEnabled && !demoEnabled ? (
+        {!emailEnabled && !googleEnabled ? (
           <p className="text-sm text-white/65">
-            No authentication provider is configured. Enable Demo Mode or configure OAuth/SMTP env vars.
+            No authentication provider is configured. Configure Google OAuth or SMTP magic links.
           </p>
         ) : null}
 
@@ -125,10 +124,6 @@ export function SignInCard({
           <p className="inline-flex items-center gap-2">
             <ShieldCheck className="size-3.5 text-white/90" />
             OAuth-only access and encrypted token storage
-          </p>
-          <p className="inline-flex items-center gap-2">
-            <CheckCircle2 className="size-3.5 text-white/90" />
-            Demo mode requires no external keys
           </p>
         </div>
       </CardContent>

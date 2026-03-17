@@ -9,12 +9,12 @@ import type { TrialPatchInput } from "@/src/shared/contracts";
 const FREE_PLAN_LIMIT = 3;
 
 export async function assertCanCreateTrial(userId: string) {
-  const user = await prisma.user.findUnique({ where: { id: userId }, select: { tier: true, isDemo: true } });
+  const user = await prisma.user.findUnique({ where: { id: userId }, select: { tier: true } });
   if (!user) {
     throw new Error("User not found");
   }
 
-  if (user.tier === "PREMIUM" || user.isDemo) {
+  if (user.tier === "PREMIUM") {
     return;
   }
 

@@ -22,12 +22,12 @@ export default async function HistoryPage() {
       </CardHeader>
       <CardContent className="space-y-3">
         {rows.map((row) => (
-          <div key={row.id} className="rounded-xl border border-white/60 bg-white/70 p-4">
+          <div key={row.id} className="rounded-xl border border-white/15 bg-white/[0.04] p-4">
             <div className="flex items-center justify-between">
               <p className="font-semibold">{row.serviceName}</p>
               <Badge>{row.status.replace("_", " ")}</Badge>
             </div>
-            <p className="mt-1 text-sm text-muted-foreground">
+            <p className="mt-1 text-sm text-white/65">
               Billing: {row.billingDate.toLocaleDateString()} {row.costAmount ? `| $${row.costAmount}` : ""}
             </p>
           </div>

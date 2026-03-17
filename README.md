@@ -4,24 +4,22 @@ AutoCancel detects free trials and subscription billing emails, predicts upcomin
 
 ## Monorepo structure
 
-- `apps/web`: Next.js web product (landing page, dashboard, API, auth, billing, cron)
+- `apps/web`: Next.js web product (marketing pages, dashboard, API routes, auth, billing, cron)
 - `apps/mobile`: Expo native companion for iOS/Android push registration
 - `packages/shared`: Shared enums and zod contracts
 - `docs`: Deployment and security docs
 
-## Core features implemented
+## Core features
 
-- Fully seeded Demo Mode with instant sign-in, demo banner, reset button, and simulated provider/billing flows
-- Email auth (magic link) + Google auth via NextAuth
+- Production-ready auth with Google OAuth and optional email magic link
 - Gmail, Outlook, and OAuth2 IMAP integration routes
-- Detection pipeline (keywords + OpenAI structured extraction)
-- Auto-approve high-confidence detections, review queue for uncertain detections
+- Trial detection pipeline (keyword heuristics + OpenAI structured extraction)
+- Review queue for low-confidence detections
 - Dashboard sections: Active Trials, Billing Soon, Cancelled, Completed
-- Trial status updates and restore
-- Reminder jobs (email + web push + native push)
-- Stripe Checkout + customer portal + webhook processing
-- Free tier limits (3 active) and premium unlimited
-- Vercel cron endpoints for reminder processing and periodic inbox sync
+- Reminder automation (email + web push + mobile push)
+- Stripe checkout, portal, and webhook billing state sync
+- Free tier limit (3 active trials) and premium unlimited tracking
+- Vercel cron endpoints for reminder processing and inbox sync refresh
 
 ## Local setup
 
@@ -37,13 +35,11 @@ pnpm install
 docker compose up -d
 ```
 
-3. Configure env vars
+3. Configure environment
 
 ```bash
 cp .env.example .env
 ```
-
-For keyless demo, keep `DEMO_MODE=true` and leave external provider keys empty.
 
 4. Prisma setup
 
@@ -65,22 +61,9 @@ pnpm dev:web
 pnpm dev:mobile
 ```
 
-## Demo mode
-
-- Open `/` and click `Try Demo` for instant sign-in.
-- Demo Mode seeds realistic sample data for:
-  - active trials
-  - billing soon
-  - cancelled trials
-  - completed trials
-  - review queue items
-  - premium upsell state
-- Use `Reset demo data` in the dashboard to restore seeded state with one click.
-- In demo mode, inbox sync/provider connect/upgrade actions are simulated so the full UX is clickable without external APIs.
-
 ## Important environment variables
 
-- Auth: `NEXTAUTH_URL`, `NEXTAUTH_SECRET`, SMTP credentials, Google/Microsoft OAuth keys
+- Auth: `NEXTAUTH_URL`/`AUTH_URL`, `NEXTAUTH_SECRET`/`AUTH_SECRET`, Google OAuth keys, optional SMTP keys
 - Data: `DATABASE_URL`, `ENCRYPTION_KEY_BASE64`
 - AI + notifications: `OPENAI_API_KEY`, `RESEND_API_KEY`, `VAPID_*`, `EXPO_ACCESS_TOKEN`
 - Billing: `STRIPE_SECRET_KEY`, `STRIPE_PRICE_PREMIUM_MONTHLY`, `STRIPE_WEBHOOK_SECRET`
@@ -104,26 +87,27 @@ pnpm dev:mobile
   - `POST /api/notifications/subscribe/web-push`
   - `POST /api/mobile/push-token`
   - `POST /api/mobile/link-token`
-- Demo:
-  - `POST /api/demo/reset`
-  - `POST /api/demo/toggle-tier`
-  - `POST /api/demo/connect`
 - Billing:
   - `POST /api/billing/checkout`
   - `POST /api/billing/portal`
   - `POST /api/webhooks/stripe`
+- User settings:
+  - `GET /api/user/settings`
+  - `PATCH /api/user/settings`
 - Cron:
   - `POST /api/cron/reminders`
   - `POST /api/cron/inbox-sync`
 
-## Running tests
+## Tests and build
 
 ```bash
 pnpm --filter @autocancel/shared test
+pnpm --filter @autocancel/web lint
+pnpm --filter @autocancel/web typecheck
 pnpm --filter @autocancel/web test
-pnpm --filter @autocancel/web test:e2e
+pnpm --filter @autocancel/web build
 ```
 
 ## Deployment
 
-See [docs/deployment.md](docs/deployment.md) and [docs/security.md](docs/security.md).
+See [docs/deployment.md](docs/deployment.md), [docs/security.md](docs/security.md), and [docs/auth-verification.md](docs/auth-verification.md).

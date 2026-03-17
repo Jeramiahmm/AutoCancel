@@ -9,7 +9,6 @@ declare module "next-auth" {
       image?: string | null;
       tier?: "FREE" | "PREMIUM";
       timezone?: string;
-      isDemo?: boolean;
     };
   }
 }

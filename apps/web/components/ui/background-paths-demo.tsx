@@ -5,7 +5,7 @@ export function DemoBackgroundPaths() {
     <BackgroundPaths
       title="Never forget to cancel again"
       subtitle="AutoCancel detects trial emails, predicts charge dates, and reminds you before the bill lands."
-      ctaLabel="Try Demo"
+      ctaLabel="Connect Email"
       ctaHref="/auth/signin"
     />
   );
