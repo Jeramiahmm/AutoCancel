@@ -85,10 +85,10 @@ export function SignInCard({
   }
 
   return (
-    <Card className="w-full border-white/15 bg-white/[0.04] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.22),0_24px_60px_-30px_rgba(0,0,0,0.85)] backdrop-blur-xl">
+    <Card className="w-full border-black/10 bg-white/70 text-[#141414] shadow-[0_20px_45px_-30px_rgba(0,0,0,0.45)] backdrop-blur-md">
       <CardHeader>
         <CardTitle className="text-2xl [font-family:var(--font-display)]">Welcome to AutoCancel</CardTitle>
-        <p className="text-sm text-white/65">Secure by design, no email passwords required.</p>
+        <p className="text-sm text-[#666159]">Secure by design, no email passwords required.</p>
       </CardHeader>
       <CardContent className="space-y-5">
         {emailEnabled ? (
@@ -107,22 +107,27 @@ export function SignInCard({
         ) : null}
 
         {googleEnabled ? (
-          <Button variant="outline" className="w-full" onClick={onGoogleSignIn} disabled={pending}>
+          <Button
+            variant="outline"
+            className="w-full border-black/15 bg-transparent hover:bg-black/[0.03]"
+            onClick={onGoogleSignIn}
+            disabled={pending}
+          >
             Continue with Google
           </Button>
         ) : null}
 
         {!emailEnabled && !googleEnabled ? (
-          <p className="text-sm text-white/65">
+          <p className="text-sm text-[#666159]">
             No authentication provider is configured. Configure Google OAuth or SMTP magic links.
           </p>
         ) : null}
 
-        {notice ? <p className="text-sm text-white/70">{notice}</p> : null}
+        {notice ? <p className="text-sm text-[#666159]">{notice}</p> : null}
 
-        <div className="grid gap-2 rounded-xl border border-white/15 bg-white/[0.03] p-3 text-xs text-white/70">
+        <div className="grid gap-2 rounded-xl border border-black/10 bg-[#f6f3ec] p-3 text-xs text-[#666159]">
           <p className="inline-flex items-center gap-2">
-            <ShieldCheck className="size-3.5 text-white/90" />
+            <ShieldCheck className="size-3.5 text-[#141414]" />
             OAuth-only access and encrypted token storage
           </p>
         </div>

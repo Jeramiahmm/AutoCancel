@@ -80,7 +80,7 @@ export function ContactForm() {
       <textarea
         required
         minLength={10}
-        className="min-h-[140px] w-full rounded-md border border-white/20 bg-black/30 px-3 py-2 text-sm text-white outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="min-h-[140px] w-full rounded-xl border border-black/15 bg-white/90 px-3 py-2 text-sm text-[#141414] outline-none focus-visible:ring-2 focus-visible:ring-ring"
         placeholder="How can we help?"
         value={form.message}
         onChange={(event) => setForm((prev) => ({ ...prev, message: event.target.value }))}
@@ -90,7 +90,7 @@ export function ContactForm() {
         {pending ? "Sending..." : "Send message"}
       </Button>
 
-      {notice ? <p className="text-sm text-white/75">{notice}</p> : null}
+      {notice ? <p className="text-sm text-[#666159]">{notice}</p> : null}
     </form>
   );
 }

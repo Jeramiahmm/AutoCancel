@@ -2,53 +2,56 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Button } from "@/components/ui/button";
+import { SunMedium } from "lucide-react";
 
 const navItems = [
-  { href: "/features", label: "Features" },
-  { href: "/pricing", label: "Pricing" },
-  { href: "/security", label: "Security" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+  { href: "/", label: "Home" },
+  { href: "/features", label: "Timeline" },
+  { href: "/pricing", label: "Insights" },
+  { href: "/security", label: "Map" },
+  { href: "/about", label: "Settings" },
 ];
 
 function linkClasses(active: boolean) {
   return active
-    ? "text-white"
-    : "text-white/70 transition-colors hover:text-white";
+    ? "bg-[#d9d4cc] text-[#111111]"
+    : "text-[#282621]/85 transition-colors hover:text-[#111111]";
 }
 
 export function SiteHeader() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-4 z-40">
-      <div className="mx-auto flex w-[min(1200px,calc(100%-1.5rem))] items-center justify-between rounded-full border border-white/15 bg-white/[0.04] px-4 py-3 backdrop-blur-xl md:px-5">
-        <Link href="/" className="inline-flex items-center gap-2 text-sm font-semibold tracking-wide">
-          <span className="inline-flex size-7 items-center justify-center rounded-full border border-white/20 bg-white/10 text-xs">
-            A
-          </span>
+    <header className="pointer-events-none sticky top-4 z-40 flex items-center justify-center px-3">
+      <div className="pointer-events-auto grid w-full max-w-6xl grid-cols-[1fr_auto_1fr] items-center">
+        <Link href="/" className="justify-self-start text-xs font-semibold uppercase tracking-[0.18em] text-[#5f5b53]">
           AutoCancel
         </Link>
 
-        <nav className="hidden items-center gap-5 text-sm md:flex">
+        <nav className="hidden items-center rounded-full border border-black/10 bg-[#f4f1ea]/90 p-1 shadow-[0_8px_24px_-18px_rgba(0,0,0,0.45)] md:flex">
           {navItems.map((item) => {
-            const isActive = pathname === item.href;
+            const isActive =
+              pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
             return (
-              <Link key={item.href} href={item.href} className={linkClasses(isActive)}>
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`rounded-full px-7 py-2 text-sm font-semibold ${linkClasses(isActive)}`}
+              >
                 {item.label}
               </Link>
             );
           })}
         </nav>
 
-        <div className="flex items-center gap-2">
-          <Button variant="ghost" className="rounded-full text-white/90 hover:bg-white/10 hover:text-white" asChild>
-            <Link href="/auth/signin">Log in</Link>
-          </Button>
-          <Button className="cta-shimmer rounded-full border border-white/10 shadow-[0_8px_36px_-12px_rgba(95,135,255,0.65)]" asChild>
-            <Link href="/auth/signin">Connect Email</Link>
-          </Button>
+        <div className="flex items-center justify-self-end">
+          <Link
+            href="/auth/signin"
+            className="inline-flex size-9 items-center justify-center rounded-full border border-black/10 bg-white/65 text-[#131313] transition hover:bg-white"
+            aria-label="Sign in"
+          >
+            <SunMedium className="size-4" />
+          </Link>
         </div>
       </div>
     </header>

@@ -5,17 +5,18 @@
 :root {
   --font-sans: "Inter", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
   --font-display: "Playfair Display", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
-  --background: 0 0% 2%;
-  --foreground: 0 0% 98%;
-  --muted: 220 10% 12%;
-  --muted-foreground: 220 8% 70%;
-  --card: 220 11% 8%;
-  --card-foreground: 0 0% 98%;
-  --border: 0 0% 100% / 0.12;
-  --input: 220 10% 22%;
-  --ring: 217 100% 62%;
-  --primary: 217 100% 62%;
-  --primary-foreground: 0 0% 100%;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  --background: 40 18% 92%;
+  --foreground: 0 0% 7%;
+  --muted: 30 9% 86%;
+  --muted-foreground: 24 5% 42%;
+  --card: 40 20% 94%;
+  --card-foreground: 0 0% 10%;
+  --border: 28 9% 77%;
+  --input: 30 10% 80%;
+  --ring: 0 0% 10%;
+  --primary: 0 0% 8%;
+  --primary-foreground: 40 18% 95%;
   --danger: 355 82% 56%;
   --danger-foreground: 0 0% 98%;
 }
@@ -27,8 +28,9 @@
 body {
   @apply bg-background text-foreground antialiased;
   font-family: var(--font-sans);
-  background: #030303;
+  background: #efede8;
   min-height: 100vh;
+  color: #121212;
 }
 
 .noise::before {
@@ -37,13 +39,14 @@ body {
   inset: 0;
   pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.88' numOctaves='2'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.07'/%3E%3C/svg%3E");
-  mix-blend-mode: overlay;
+  mix-blend-mode: soft-light;
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.48);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(20, 20, 20, 0.08);
+  box-shadow: 0 6px 20px -14px rgba(0, 0, 0, 0.35);
 }
 
 .section-title {
@@ -51,9 +54,7 @@ body {
 }
 
 .metric-gradient {
-  background: linear-gradient(120deg, #0c7d8d 0%, #258d64 55%, #7f9de4 100%);
-  -webkit-background-clip: text;
-  color: transparent;
+  color: #111111;
 }
 
 .cta-shimmer {
@@ -66,10 +67,22 @@ body {
   position: absolute;
   inset: 0;
   transform: translateX(-140%);
-  background: linear-gradient(120deg, transparent 20%, rgba(255, 255, 255, 0.38) 46%, transparent 72%);
+  background: linear-gradient(120deg, transparent 20%, rgba(255, 255, 255, 0.65) 46%, transparent 72%);
   transition: transform 650ms ease;
 }
 
 .cta-shimmer:hover::after {
   transform: translateX(140%);
+}
+
+.editorial-hero {
+  font-family: var(--font-display);
+  letter-spacing: -0.03em;
+}
+
+.editorial-emphasis {
+  font-family: var(--font-mono);
+  font-style: italic;
+  font-weight: 700;
+  color: #7f7c76;
 }

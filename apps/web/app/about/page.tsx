@@ -7,26 +7,25 @@ import { Reveal } from "@/components/marketing/sections";
 export default function AboutPage() {
   return (
     <MarketingShell>
-      <Reveal className="mx-auto max-w-6xl px-4 pb-12 pt-24 md:px-6 md:pt-28">
-        <h1 className="bg-gradient-to-b from-white to-slate-400 bg-clip-text text-4xl font-semibold tracking-tighter text-transparent md:text-6xl [font-family:var(--font-display)]">
-          AutoCancel helps people avoid accidental subscription charges
-        </h1>
-        <p className="mt-4 max-w-3xl text-white/70 md:text-lg">
-          We built AutoCancel after seeing how easy it is to miss trial deadlines across multiple inboxes and tools.
+      <Reveal className="mx-auto max-w-6xl px-4 pb-12 pt-24 text-center md:px-6 md:pt-28">
+        <p className="mb-4 text-[11px] uppercase tracking-[0.28em] text-[#8c877e]">About AutoCancel</p>
+        <h1 className="editorial-hero text-5xl leading-[0.94] text-[#141414] md:text-7xl">Built for control</h1>
+        <p className="mx-auto mt-5 max-w-2xl text-[#666159] md:text-lg">
+          We built AutoCancel after watching people lose money to silent trial renewals. The goal is simple: no surprises.
         </p>
       </Reveal>
 
       <Reveal className="mx-auto grid max-w-6xl gap-6 px-4 pb-16 md:grid-cols-[1fr_1fr] md:px-6">
-        <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-7 backdrop-blur-md">
-          <h2 className="text-2xl font-semibold [font-family:var(--font-display)]">What we believe</h2>
-          <ul className="mt-4 space-y-3 text-sm text-white/75">
+        <div className="rounded-3xl border border-black/10 bg-white/55 p-7 backdrop-blur-sm">
+          <h2 className="text-2xl [font-family:var(--font-display)] text-[#161616]">What we believe</h2>
+          <ul className="mt-4 space-y-3 text-sm text-[#666159]">
             <li>Users should never lose money because reminder emails are buried.</li>
             <li>Financial control tools should be simple, transparent, and secure.</li>
             <li>Production reliability matters more than flashy demos.</li>
           </ul>
         </div>
 
-        <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-3 backdrop-blur-md">
+        <div className="overflow-hidden rounded-3xl border border-black/10 bg-white/55 p-3 backdrop-blur-sm">
           <Image
             src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80"
             alt="AutoCancel team abstract visual"
@@ -38,12 +37,12 @@ export default function AboutPage() {
       </Reveal>
 
       <Reveal className="mx-auto max-w-6xl px-4 pb-20 md:px-6">
-        <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-8 text-center backdrop-blur-md">
-          <h2 className="text-2xl font-semibold [font-family:var(--font-display)]">Build your subscription command center</h2>
-          <p className="mx-auto mt-3 max-w-xl text-white/70">
+        <div className="rounded-3xl border border-black/10 bg-white/55 p-8 text-center backdrop-blur-sm">
+          <h2 className="text-3xl [font-family:var(--font-display)] text-[#141414]">Build your subscription command center</h2>
+          <p className="mx-auto mt-3 max-w-xl text-[#666159]">
             Connect your inbox and start seeing every active trial in one timeline.
           </p>
-          <Button className="mt-6 rounded-full" asChild>
+          <Button className="mt-6 rounded-full px-8" asChild>
             <Link href="/auth/signin">Get started</Link>
           </Button>
         </div>
