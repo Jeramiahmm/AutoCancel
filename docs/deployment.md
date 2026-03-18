@@ -15,8 +15,8 @@
 
 ## 3. Vercel project
 - Root directory: `apps/web`
-- Build command: `pnpm build`
-- Install command: `pnpm install`
+- Build command: `npm run build`
+- Install command: `npm install`
 - Add all env vars from `.env.example`.
 - Production auth requires:
   - `NEXTAUTH_URL` (or `AUTH_URL`)

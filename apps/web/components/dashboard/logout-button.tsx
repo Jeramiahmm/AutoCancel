@@ -17,7 +17,12 @@ export function LogoutButton() {
   }
 
   return (
-    <Button variant="outline" onClick={handleLogout} disabled={pending}>
+    <Button
+      variant="outline"
+      className="rounded-full border-black/15 bg-white/70 px-4 text-[#2f2c27] hover:bg-white"
+      onClick={handleLogout}
+      disabled={pending}
+    >
       {pending ? "Signing out..." : "Sign out"}
     </Button>
   );

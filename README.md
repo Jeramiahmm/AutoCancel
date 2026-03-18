@@ -110,4 +110,8 @@ pnpm --filter @autocancel/web build
 
 ## Deployment
 
-See [docs/deployment.md](docs/deployment.md), [docs/security.md](docs/security.md), and [docs/auth-verification.md](docs/auth-verification.md).
+Start with [docs/launch-checklist.md](docs/launch-checklist.md) for a beginner-friendly production launch path, then use:
+
+- [docs/deployment.md](docs/deployment.md)
+- [docs/auth-verification.md](docs/auth-verification.md)
+- [docs/security.md](docs/security.md)

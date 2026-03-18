@@ -2,14 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { SunMedium } from "lucide-react";
+import { Menu, SunMedium } from "lucide-react";
 
 const navItems = [
   { href: "/", label: "Home" },
   { href: "/features", label: "Timeline" },
   { href: "/pricing", label: "Insights" },
-  { href: "/security", label: "Map" },
-  { href: "/about", label: "Settings" },
+  { href: "/security", label: "Security" },
+  { href: "/about", label: "About" },
 ];
 
 function linkClasses(active: boolean) {
@@ -23,7 +23,7 @@ export function SiteHeader() {
 
   return (
     <header className="pointer-events-none sticky top-4 z-40 flex items-center justify-center px-3">
-      <div className="pointer-events-auto grid w-full max-w-6xl grid-cols-[1fr_auto_1fr] items-center">
+      <div className="pointer-events-auto grid w-full max-w-6xl grid-cols-[1fr_auto_1fr] items-center gap-3">
         <Link href="/" className="justify-self-start text-xs font-semibold uppercase tracking-[0.18em] text-[#5f5b53]">
           AutoCancel
         </Link>
@@ -45,6 +45,13 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center justify-self-end">
+          <Link
+            href="/contact"
+            className="mr-2 inline-flex size-9 items-center justify-center rounded-full border border-black/10 bg-white/65 text-[#131313] transition hover:bg-white md:hidden"
+            aria-label="Open menu"
+          >
+            <Menu className="size-4" />
+          </Link>
           <Link
             href="/auth/signin"
             className="inline-flex size-9 items-center justify-center rounded-full border border-black/10 bg-white/65 text-[#131313] transition hover:bg-white"

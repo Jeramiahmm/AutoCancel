@@ -49,12 +49,12 @@ export function ReviewQueue({ detections }: { detections: DetectionQueueItem[] }
   }
 
   return (
-    <Card className="glass">
+    <Card className="rounded-3xl border-black/10 bg-white/58 backdrop-blur-md">
       <CardHeader>
-        <CardTitle>Detection review queue</CardTitle>
+        <CardTitle className="text-[#171717]">Detection review queue</CardTitle>
       </CardHeader>
       <CardContent className="space-y-3">
-        {notice ? <div className="rounded-xl border border-sky-200 bg-sky-50 px-3 py-2 text-sm text-sky-900">{notice}</div> : null}
+        {notice ? <div className="rounded-xl border border-black/10 bg-[#f7f3ec] px-3 py-2 text-sm text-[#4b463f]">{notice}</div> : null}
         {items.length === 0 ? (
           <p className="text-sm text-muted-foreground">No pending detections.</p>
         ) : (
@@ -66,25 +66,26 @@ export function ReviewQueue({ detections }: { detections: DetectionQueueItem[] }
             };
 
             return (
-              <div key={item.id} className="rounded-xl border border-white/15 bg-white/[0.04] p-4">
+              <div key={item.id} className="rounded-xl border border-black/10 bg-white/68 p-4">
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <p className="font-semibold">{extraction.serviceName ?? item.subject}</p>
-                    <p className="text-xs text-white/65">{item.subject}</p>
-                    <p className="mt-1 text-sm text-white/70">
+                    <p className="font-semibold text-[#171717]">{extraction.serviceName ?? item.subject}</p>
+                    <p className="text-xs text-[#6a655d]">{item.subject}</p>
+                    <p className="mt-1 text-sm text-[#6a655d]">
                       Billing: {extraction.billingDate ? new Date(extraction.billingDate).toLocaleDateString() : "Unknown"}
                       {extraction.subscriptionCost ? ` | $${extraction.subscriptionCost}` : ""}
                     </p>
                   </div>
-                  <p className="text-xs text-white/70">Confidence {Math.round(item.confidence * 100)}%</p>
+                  <p className="text-xs text-[#6a655d]">Confidence {Math.round(item.confidence * 100)}%</p>
                 </div>
                 <div className="mt-3 flex gap-2">
-                  <Button size="sm" onClick={() => review(item.id, "approve")} disabled={pending === item.id}>
+                  <Button size="sm" className="rounded-full" onClick={() => review(item.id, "approve")} disabled={pending === item.id}>
                     Approve
                   </Button>
                   <Button
                     size="sm"
                     variant="outline"
+                    className="rounded-full border-black/15 bg-transparent"
                     onClick={() => review(item.id, "reject")}
                     disabled={pending === item.id}
                   >

@@ -80,7 +80,7 @@ export function LiveMotionDashboard() {
   const progress = Math.max(8, Math.round((Math.min(step + 1, scanItems.length) / scanItems.length) * 100));
 
   return (
-    <div className="relative mx-auto w-full max-w-3xl overflow-hidden rounded-[1.5rem] border border-black/10 bg-[#f7f4ee]/80 p-4 shadow-[0_18px_44px_-34px_rgba(0,0,0,0.45)] backdrop-blur-sm">
+    <div className="relative mx-auto w-full max-w-3xl overflow-hidden rounded-[1.6rem] border border-black/10 bg-[#f7f4ee]/80 p-4 shadow-[0_24px_56px_-36px_rgba(0,0,0,0.45)] backdrop-blur-sm">
       <div className="mb-3 flex items-center justify-between">
         <div>
           <p className="text-[10px] uppercase tracking-[0.24em] text-[#7f7a72]">Live Dashboard</p>
@@ -125,6 +125,11 @@ export function LiveMotionDashboard() {
           ))}
         </div>
       </div>
+      <div className="mt-3 flex flex-wrap gap-2">
+        <span className="rounded-full border border-black/10 bg-white/60 px-3 py-1 text-xs text-[#5d5952]">Gmail</span>
+        <span className="rounded-full border border-black/10 bg-white/60 px-3 py-1 text-xs text-[#5d5952]">Outlook</span>
+        <span className="rounded-full border border-black/10 bg-white/60 px-3 py-1 text-xs text-[#5d5952]">IMAP</span>
+      </div>
 
       <div className="mt-3 h-1.5 w-full rounded-full bg-black/10">
         <motion.div
@@ -140,8 +145,11 @@ export function LiveMotionDashboard() {
 export function FeatureBento() {
   return (
     <div className="grid gap-4 md:grid-cols-2">
-      {featureCards.map((feature) => (
-        <Card key={feature.title} className="rounded-3xl border-black/10 bg-white/55 backdrop-blur-sm">
+      {featureCards.map((feature, index) => (
+        <Card
+          key={feature.title}
+          className={`rounded-3xl border-black/10 bg-white/55 backdrop-blur-sm ${index === 0 ? "md:col-span-2" : ""}`}
+        >
           <CardHeader>
             <div className="mb-2 inline-flex size-10 items-center justify-center rounded-xl border border-black/10 bg-[#efede8]">
               <feature.icon className="size-5 text-[#121212]" strokeWidth={1.6} />
@@ -159,7 +167,7 @@ export function FeatureBento() {
 
 export function TrustedMarquee() {
   return (
-    <div className="mx-auto max-w-6xl rounded-3xl border border-black/10 bg-white/55 py-7 backdrop-blur-sm">
+    <div className="mx-auto max-w-6xl rounded-3xl border border-black/10 bg-white/55 py-7 shadow-[0_16px_40px_-32px_rgba(0,0,0,0.45)] backdrop-blur-sm">
       <p className="mb-5 text-center text-xs uppercase tracking-[0.22em] text-[#7f7a72]">Trusted by 10,000+ users</p>
       <div className="relative overflow-hidden">
         <motion.div
@@ -222,7 +230,7 @@ export function PricingCards() {
           </ul>
         </article>
 
-        <article className="rounded-3xl border border-black/20 bg-[#f8f5ee] p-7 shadow-[0_16px_40px_-32px_rgba(0,0,0,0.55)]">
+        <article className="rounded-3xl border border-black/20 bg-[#f8f5ee] p-7 shadow-[0_22px_50px_-34px_rgba(0,0,0,0.55)]">
           <h3 className="text-xl font-semibold text-[#121212]">Premium</h3>
           <p className="mt-3 text-4xl font-semibold text-[#121212]">
             {price}

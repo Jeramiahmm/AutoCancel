@@ -64,6 +64,8 @@ async function parseApiResponse(response: Response) {
   return payload as { success?: boolean; data?: unknown };
 }
 
+const panelClass = "rounded-3xl border border-black/10 bg-white/58 backdrop-blur-md";
+
 export function DashboardClient({
   initialTrials,
   billingSoon,
@@ -257,49 +259,59 @@ export function DashboardClient({
     }
   }
 
+  const activeRows = trials.filter((trial) => trial.status === "ACTIVE" || trial.status === "BILLING_SOON");
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 pb-10">
+      <section className="mx-auto flex max-w-6xl items-end justify-between gap-4">
+        <div>
+          <p className="mb-1 text-[11px] uppercase tracking-[0.26em] text-[#8a857c]">Subscription Control Center</p>
+          <h1 className="text-4xl text-[#121212] [font-family:var(--font-display)]">Dashboard</h1>
+        </div>
+        <Button
+          variant="outline"
+          className="rounded-full border-black/15 bg-white/70"
+          onClick={syncAll}
+          disabled={pending === "sync"}
+        >
+          <RefreshCw className="mr-2 size-4" />
+          {pending === "sync" ? "Syncing..." : "Sync inbox"}
+        </Button>
+      </section>
+
       {notice ? (
-        <div className="rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-sm text-sky-900">{notice}</div>
+        <div className="rounded-2xl border border-black/10 bg-[#f7f3ec] px-4 py-3 text-sm text-[#4b463f]">{notice}</div>
       ) : null}
 
       <section className="grid gap-4 md:grid-cols-4">
-        <Card className="glass">
+        {[{ label: "Active trials", value: activeCount }, { label: "Billing soon", value: billingSoon.length }, { label: "Needs review", value: pendingReviewCount }].map((metric) => (
+          <Card key={metric.label} className={panelClass}>
+            <CardHeader>
+              <CardTitle className="text-sm text-[#6a655d]">{metric.label}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-4xl font-semibold text-[#161616]">{metric.value}</p>
+            </CardContent>
+          </Card>
+        ))}
+        <Card className={panelClass}>
           <CardHeader>
-            <CardTitle className="text-sm text-muted-foreground">Active trials</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-3xl font-semibold metric-gradient">{activeCount}</p>
-          </CardContent>
-        </Card>
-        <Card className="glass">
-          <CardHeader>
-            <CardTitle className="text-sm text-muted-foreground">Billing soon</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-3xl font-semibold metric-gradient">{billingSoon.length}</p>
-          </CardContent>
-        </Card>
-        <Card className="glass">
-          <CardHeader>
-            <CardTitle className="text-sm text-muted-foreground">Needs review</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-3xl font-semibold metric-gradient">{pendingReviewCount}</p>
-          </CardContent>
-        </Card>
-        <Card className="glass">
-          <CardHeader>
-            <CardTitle className="text-sm text-muted-foreground">Plan</CardTitle>
+            <CardTitle className="text-sm text-[#6a655d]">Plan</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
-            <p className="text-lg font-semibold">{tier === "PREMIUM" ? "Premium" : "Free"}</p>
+            <p className="text-lg font-semibold text-[#181818]">{tier === "PREMIUM" ? "Premium" : "Free"}</p>
             {tier === "FREE" ? (
-              <Button size="sm" onClick={upgrade} disabled={pending === "upgrade"}>
+              <Button size="sm" className="rounded-full" onClick={upgrade} disabled={pending === "upgrade"}>
                 {pending === "upgrade" ? "Loading..." : "Upgrade to Premium"}
               </Button>
             ) : (
-              <Button size="sm" variant="outline" onClick={openBillingPortal} disabled={pending === "billing-portal"}>
+              <Button
+                size="sm"
+                variant="outline"
+                className="rounded-full border-black/15 bg-transparent"
+                onClick={openBillingPortal}
+                disabled={pending === "billing-portal"}
+              >
                 {pending === "billing-portal" ? "Loading..." : "Manage billing"}
               </Button>
             )}
@@ -308,36 +320,34 @@ export function DashboardClient({
       </section>
 
       <section className="grid gap-4 md:grid-cols-[1.2fr_0.8fr]">
-        <Card className="glass">
-          <CardHeader className="flex-row items-center justify-between">
-            <div>
-              <CardTitle>Active Trials</CardTitle>
-              <p className="text-sm text-muted-foreground">Track upcoming charges and cancel in time.</p>
-            </div>
-            <Button variant="outline" onClick={syncAll} disabled={pending === "sync"}>
-              <RefreshCw className="mr-2 size-4" />
-              {pending === "sync" ? "Syncing..." : "Sync inbox"}
-            </Button>
+        <Card className={panelClass}>
+          <CardHeader>
+            <CardTitle className="text-[#181818]">Active Trials</CardTitle>
+            <p className="text-sm text-[#6a655d]">Track upcoming charges and mark cancelled in one click.</p>
           </CardHeader>
           <CardContent className="space-y-3">
-            {trials
-              .filter((trial) => trial.status === "ACTIVE" || trial.status === "BILLING_SOON")
-              .map((trial) => (
-                <div key={trial.id} className="rounded-xl border border-white/60 bg-white/80 p-4">
+            {activeRows.length === 0 ? (
+              <div className="rounded-xl border border-black/10 bg-white/65 px-4 py-5 text-sm text-[#6a655d]">
+                No active trials yet. Connect Gmail or Outlook to start scanning.
+              </div>
+            ) : (
+              activeRows.map((trial) => (
+                <div key={trial.id} className="rounded-2xl border border-black/10 bg-white/70 p-4">
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <p className="font-semibold">{trial.serviceName}</p>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-base font-semibold text-[#151515]">{trial.serviceName}</p>
+                      <p className="text-sm text-[#6a655d]">
                         Started {formatDate(trial.startDate)} | Bills {formatDate(trial.billingDate)}
                       </p>
                     </div>
                     <Badge variant={statusBadgeVariant(trial.status)}>{trial.status.replace("_", " ")}</Badge>
                   </div>
                   <div className="mt-3 flex items-center justify-between">
-                    <p className="text-sm font-medium text-muted-foreground">{trial.daysRemaining} days remaining</p>
+                    <p className="text-sm font-medium text-[#5d5952]">{trial.daysRemaining} days remaining</p>
                     <Button
                       size="sm"
                       variant="danger"
+                      className="rounded-full"
                       onClick={() => markCancelled(trial.id)}
                       disabled={pending === trial.id}
                     >
@@ -345,21 +355,22 @@ export function DashboardClient({
                     </Button>
                   </div>
                 </div>
-              ))}
+              ))
+            )}
           </CardContent>
         </Card>
 
         <div className="space-y-4">
-          <Card className="glass">
+          <Card className={panelClass}>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-base">
-                <Sparkles className="size-4 text-primary" />
+              <CardTitle className="flex items-center gap-2 text-base text-[#181818]">
+                <Sparkles className="size-4" />
                 Connect providers
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
               <Button
-                className="w-full justify-start"
+                className="w-full justify-start rounded-full"
                 variant="outline"
                 onClick={() => startOAuthConnect("google")}
                 disabled={pending === "oauth-google"}
@@ -367,15 +378,16 @@ export function DashboardClient({
                 {pending === "oauth-google" ? "Redirecting to Google..." : "Connect Gmail"}
               </Button>
               <Button
-                className="w-full justify-start"
+                className="w-full justify-start rounded-full"
                 variant="outline"
                 onClick={() => startOAuthConnect("microsoft")}
                 disabled={pending === "oauth-microsoft"}
               >
                 {pending === "oauth-microsoft" ? "Redirecting to Microsoft..." : "Connect Outlook"}
               </Button>
-              <div className="rounded-xl border p-3">
-                <p className="mb-2 text-xs uppercase tracking-wide text-muted-foreground">OAuth2 IMAP fallback</p>
+
+              <div className="rounded-2xl border border-black/10 bg-white/68 p-3">
+                <p className="mb-2 text-xs uppercase tracking-[0.2em] text-[#7d786f]">OAuth2 IMAP fallback</p>
                 <div className="space-y-2">
                   <Input
                     value={imapForm.email}
@@ -397,46 +409,46 @@ export function DashboardClient({
                     onChange={(event) => setImapForm((prev) => ({ ...prev, accessToken: event.target.value }))}
                     placeholder="OAuth access token"
                   />
-                  <Button className="w-full" size="sm" onClick={connectImap} disabled={pending === "imap"}>
+                  <Button className="w-full rounded-full" size="sm" onClick={connectImap} disabled={pending === "imap"}>
                     {pending === "imap" ? "Connecting..." : "Connect IMAP"}
                   </Button>
                 </div>
               </div>
-              <p className="text-xs text-muted-foreground">{connections.length} provider connection(s) active</p>
+              <p className="text-xs text-[#6a655d]">{connections.length} provider connection(s) active</p>
             </CardContent>
           </Card>
 
-          <Card className="glass">
+          <Card className={panelClass}>
             <CardHeader>
-              <CardTitle className="text-base">Reminder channels</CardTitle>
+              <CardTitle className="text-base text-[#181818]">Reminder channels</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
               <Button
                 variant="outline"
-                className="w-full justify-start"
+                className="w-full justify-start rounded-full"
                 onClick={subscribeWebPush}
                 disabled={pending === "web-push"}
               >
                 <Bell className="mr-2 size-4" />
                 {pending === "web-push" ? "Enabling..." : "Enable web push"}
               </Button>
-              <div className="grid grid-cols-3 gap-2 text-xs text-muted-foreground">
-                <div className="rounded-lg border border-white/60 p-2">
+              <div className="grid grid-cols-3 gap-2 text-xs text-[#6a655d]">
+                <div className="rounded-xl border border-black/10 bg-white/60 p-2">
                   <CalendarClock className="mb-1 size-4" />
                   48h alert
                 </div>
-                <div className="rounded-lg border border-white/60 p-2">
+                <div className="rounded-xl border border-black/10 bg-white/60 p-2">
                   <Zap className="mb-1 size-4" />
                   24h alert
                 </div>
-                <div className="rounded-lg border border-white/60 p-2">
+                <div className="rounded-xl border border-black/10 bg-white/60 p-2">
                   <Shield className="mb-1 size-4" />
                   OAuth only
                 </div>
               </div>
               <Button
                 variant="outline"
-                className="w-full justify-start"
+                className="w-full justify-start rounded-full"
                 onClick={generateMobileLinkToken}
                 disabled={pending === "mobile-token"}
               >
@@ -449,35 +461,35 @@ export function DashboardClient({
       </section>
 
       <section className="grid gap-4 md:grid-cols-2">
-        <Card className="glass">
+        <Card className={panelClass}>
           <CardHeader>
-            <CardTitle className="text-base">Cancelled trials</CardTitle>
+            <CardTitle className="text-base text-[#181818]">Cancelled trials</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2 text-sm">
             {cancelled.length ? (
               cancelled.slice(0, 5).map((trial) => (
-                <div key={trial.id} className="rounded-lg border border-white/60 px-3 py-2">
+                <div key={trial.id} className="rounded-xl border border-black/10 bg-white/65 px-3 py-2 text-[#2d2a26]">
                   {trial.serviceName}
                 </div>
               ))
             ) : (
-              <p className="text-muted-foreground">No cancelled trials yet.</p>
+              <p className="text-[#6a655d]">No cancelled trials yet.</p>
             )}
           </CardContent>
         </Card>
-        <Card className="glass">
+        <Card className={panelClass}>
           <CardHeader>
-            <CardTitle className="text-base">Completed subscriptions</CardTitle>
+            <CardTitle className="text-base text-[#181818]">Completed subscriptions</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2 text-sm">
             {completed.length ? (
               completed.slice(0, 5).map((trial) => (
-                <div key={trial.id} className="rounded-lg border border-white/60 px-3 py-2">
+                <div key={trial.id} className="rounded-xl border border-black/10 bg-white/65 px-3 py-2 text-[#2d2a26]">
                   {trial.serviceName}
                 </div>
               ))
             ) : (
-              <p className="text-muted-foreground">No completed subscriptions yet.</p>
+              <p className="text-[#6a655d]">No completed subscriptions yet.</p>
             )}
           </CardContent>
         </Card>

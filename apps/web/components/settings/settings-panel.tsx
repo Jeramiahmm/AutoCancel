@@ -103,12 +103,12 @@ export function SettingsPanel({
   return (
     <div className="space-y-6">
       {notice ? (
-        <div className="rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-sm text-sky-900">{notice}</div>
+        <div className="rounded-xl border border-black/10 bg-[#f7f3ec] px-4 py-3 text-sm text-[#4b463f]">{notice}</div>
       ) : null}
 
-      <Card className="glass">
+      <Card className="rounded-3xl border-black/10 bg-white/58 backdrop-blur-md">
         <CardHeader>
-          <CardTitle>Profile & timezone</CardTitle>
+          <CardTitle className="text-[#171717]">Profile & timezone</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
@@ -138,7 +138,7 @@ export function SettingsPanel({
               id="settings-timezone"
               value={timezone}
               onChange={(event) => setTimezone(event.target.value)}
-              className="h-10 w-full rounded-md border border-white/20 bg-black/30 px-3 text-sm text-white outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="h-10 w-full rounded-xl border border-black/15 bg-white/90 px-3 text-sm text-[#141414] outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               {timezoneOptions.map((option) => (
                 <option key={option} value={option}>
@@ -148,15 +148,15 @@ export function SettingsPanel({
             </select>
           </div>
 
-          <Button onClick={saveProfile} disabled={pending === "profile"}>
+          <Button className="rounded-full" onClick={saveProfile} disabled={pending === "profile"}>
             {pending === "profile" ? "Saving..." : "Save settings"}
           </Button>
         </CardContent>
       </Card>
 
-      <Card className="glass">
+      <Card className="rounded-3xl border-black/10 bg-white/58 backdrop-blur-md">
         <CardHeader>
-          <CardTitle>Connected providers</CardTitle>
+          <CardTitle className="text-[#171717]">Connected providers</CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
           {sortedConnections.length === 0 ? (
@@ -165,17 +165,18 @@ export function SettingsPanel({
             sortedConnections.map((connection) => (
               <div
                 key={connection.id}
-                className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-white/15 bg-white/[0.04] p-3"
+                className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-black/10 bg-white/68 p-3"
               >
                 <div>
-                  <p className="font-medium">{connection.provider}</p>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="font-medium text-[#171717]">{connection.provider}</p>
+                  <p className="text-sm text-[#6a655d]">
                     {connection.emailAddress ?? "No email returned"} · {connection.status}
                   </p>
                 </div>
                 <Button
                   variant="outline"
                   size="sm"
+                  className="rounded-full border-black/15 bg-transparent"
                   onClick={() => disconnectConnection(connection.provider)}
                   disabled={pending === `disconnect-${connection.provider}`}
                 >

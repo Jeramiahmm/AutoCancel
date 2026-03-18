@@ -16,23 +16,29 @@ export default async function HistoryPage() {
   });
 
   return (
-    <Card className="glass">
-      <CardHeader>
-        <CardTitle>Subscription history</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-3">
-        {rows.map((row) => (
-          <div key={row.id} className="rounded-xl border border-white/15 bg-white/[0.04] p-4">
-            <div className="flex items-center justify-between">
-              <p className="font-semibold">{row.serviceName}</p>
-              <Badge>{row.status.replace("_", " ")}</Badge>
+    <div className="space-y-4">
+      <div>
+        <p className="mb-1 text-[11px] uppercase tracking-[0.26em] text-[#8a857c]">Your Timeline</p>
+        <h1 className="text-4xl text-[#121212] [font-family:var(--font-display)]">History</h1>
+      </div>
+      <Card className="rounded-3xl border-black/10 bg-white/58 backdrop-blur-md">
+        <CardHeader>
+          <CardTitle className="text-[#171717]">Subscription history</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          {rows.map((row) => (
+            <div key={row.id} className="rounded-xl border border-black/10 bg-white/68 p-4">
+              <div className="flex items-center justify-between">
+                <p className="font-semibold text-[#171717]">{row.serviceName}</p>
+                <Badge>{row.status.replace("_", " ")}</Badge>
+              </div>
+              <p className="mt-1 text-sm text-[#6a655d]">
+                Billing: {row.billingDate.toLocaleDateString()} {row.costAmount ? `| $${row.costAmount}` : ""}
+              </p>
             </div>
-            <p className="mt-1 text-sm text-white/65">
-              Billing: {row.billingDate.toLocaleDateString()} {row.costAmount ? `| $${row.costAmount}` : ""}
-            </p>
-          </div>
-        ))}
-      </CardContent>
-    </Card>
+          ))}
+        </CardContent>
+      </Card>
+    </div>
   );
 }

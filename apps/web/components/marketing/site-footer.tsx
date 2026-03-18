@@ -9,10 +9,10 @@ const footerLinks = [
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-black/10 px-4 py-10 md:px-6">
+    <footer className="border-t border-black/10 px-4 py-14 md:px-6">
       <div className="mx-auto grid w-full max-w-6xl gap-6 md:grid-cols-[1fr_auto] md:items-center">
         <div>
-          <p className="text-sm font-semibold text-[#141414]">AutoCancel</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.15em] text-[#141414]">AutoCancel</p>
           <p className="mt-2 max-w-md text-sm text-[#5e5a53]">
             Detect free trials, forecast upcoming charges, and cancel before billing hits.
           </p>
