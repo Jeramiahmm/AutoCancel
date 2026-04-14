@@ -30,7 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           rel="stylesheet"
         />
       </head>
-      <body className="antialiased">
+      <body className="font-sans antialiased">
         <Providers>{children}</Providers>
       </body>
     </html>
