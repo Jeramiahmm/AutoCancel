@@ -19,7 +19,7 @@ export function LogoutButton() {
   return (
     <Button
       variant="outline"
-      className="rounded-full border-black/15 bg-white/70 px-4 text-[#2f2c27] hover:bg-white"
+      className="rounded-full px-4"
       onClick={handleLogout}
       disabled={pending}
     >

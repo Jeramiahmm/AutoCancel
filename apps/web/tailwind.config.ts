@@ -52,13 +52,28 @@ const config: Config = {
           "0%": { backgroundPosition: "200% 0" },
           "100%": { backgroundPosition: "-200% 0" },
         },
+        "gradient-shift": {
+          "0%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+          "100%": { backgroundPosition: "0% 50%" },
+        },
+        "pulse-glow": {
+          "0%, 100%": { opacity: "0.6" },
+          "50%": { opacity: "1" },
+        },
       },
       animation: {
         "fade-up": "fade-up 0.7s ease-out both",
         shimmer: "shimmer 2.5s linear infinite",
+        "gradient-shift": "gradient-shift 6s ease infinite",
+        "pulse-glow": "pulse-glow 2s ease-in-out infinite",
       },
       boxShadow: {
-        glow: "0 10px 60px -18px rgba(12, 125, 141, 0.45)",
+        glow: "0 10px 60px -18px rgba(139, 92, 246, 0.35)",
+        "glow-lg": "0 20px 80px -20px rgba(139, 92, 246, 0.25)",
+      },
+      backgroundSize: {
+        "200%": "200% 200%",
       },
     },
   },

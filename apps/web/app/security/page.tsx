@@ -32,9 +32,9 @@ export default function SecurityPage() {
   return (
     <MarketingShell>
       <Reveal className="mx-auto max-w-6xl px-4 pb-12 pt-24 text-center md:px-6 md:pt-28">
-        <p className="mb-4 text-[11px] uppercase tracking-[0.28em] text-[#8c877e]">Privacy First</p>
-        <h1 className="editorial-hero text-5xl leading-[0.94] text-[#141414] md:text-7xl">Security</h1>
-        <p className="mx-auto mt-5 max-w-2xl text-[#666159] md:text-lg">
+        <p className="mb-4 text-[11px] uppercase tracking-[0.28em] text-zinc-500">Privacy First</p>
+        <h1 className="text-5xl font-bold leading-[0.94] tracking-tight text-white md:text-7xl">Security</h1>
+        <p className="mx-auto mt-5 max-w-2xl text-zinc-400 md:text-lg">
           Built to minimize exposure with OAuth, encryption, and strict least-privilege controls.
         </p>
       </Reveal>
@@ -42,15 +42,15 @@ export default function SecurityPage() {
       <Reveal className="mx-auto max-w-6xl px-4 pb-16 md:px-6">
         <div className="grid gap-4 md:grid-cols-2">
           {controls.map((control) => (
-            <Card key={control.title} className="border-black/10 bg-white/55 backdrop-blur-sm">
+            <Card key={control.title}>
               <CardHeader>
-                <div className="mb-2 inline-flex size-10 items-center justify-center rounded-xl border border-black/10 bg-[#efede8]">
-                  <control.icon className="size-5 text-[#121212]" strokeWidth={1.6} />
+                <div className="mb-2 inline-flex size-10 items-center justify-center rounded-xl border border-white/[0.08] bg-violet-500/10">
+                  <control.icon className="size-5 text-violet-400" strokeWidth={1.6} />
                 </div>
-                <CardTitle className="text-[#161616]">{control.title}</CardTitle>
+                <CardTitle>{control.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-[#65615a]">{control.body}</p>
+                <p className="text-sm text-zinc-400">{control.body}</p>
               </CardContent>
             </Card>
           ))}
@@ -58,16 +58,16 @@ export default function SecurityPage() {
       </Reveal>
 
       <Reveal className="mx-auto max-w-6xl px-4 pb-20 md:px-6">
-        <div className="rounded-3xl border border-black/10 bg-white/55 p-8 text-center backdrop-blur-sm">
-          <h2 className="text-3xl [font-family:var(--font-display)] text-[#141414]">Need security details for your team?</h2>
-          <p className="mx-auto mt-3 max-w-2xl text-[#666159]">
+        <div className="rounded-3xl border border-white/[0.08] bg-white/[0.04] p-8 text-center backdrop-blur-xl">
+          <h2 className="text-3xl font-bold text-white">Need security details for your team?</h2>
+          <p className="mx-auto mt-3 max-w-2xl text-zinc-400">
             We can share implementation notes for OAuth scopes, token encryption, audit logging, and webhook verification.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-2">
             <Button className="rounded-full" asChild>
               <Link href="/contact">Contact security</Link>
             </Button>
-            <Button variant="outline" className="rounded-full border-black/15 bg-transparent" asChild>
+            <Button variant="outline" className="rounded-full" asChild>
               <Link href="/auth/signin">Start secure setup</Link>
             </Button>
           </div>

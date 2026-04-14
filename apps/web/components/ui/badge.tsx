@@ -2,10 +2,10 @@ import * as React from "react";
 import { cn } from "@/src/lib/utils";
 
 const variants: Record<string, string> = {
-  default: "bg-muted text-foreground",
-  success: "bg-emerald-100 text-emerald-700",
-  warning: "bg-amber-100 text-amber-800",
-  danger: "bg-red-100 text-red-700",
+  default: "bg-white/[0.08] text-zinc-300",
+  success: "bg-emerald-500/15 text-emerald-400",
+  warning: "bg-amber-500/15 text-amber-400",
+  danger: "bg-red-500/15 text-red-400",
 };
 
 export function Badge({

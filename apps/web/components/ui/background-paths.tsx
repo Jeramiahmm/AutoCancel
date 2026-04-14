@@ -18,7 +18,7 @@ function FloatingPaths({ position }: { position: number }) {
 
   return (
     <div className="pointer-events-none absolute inset-0">
-      <svg className="h-full w-full text-slate-950" viewBox="0 0 696 316" fill="none">
+      <svg className="h-full w-full text-white" viewBox="0 0 696 316" fill="none">
         <title>Background Paths</title>
         {paths.map((path) => (
           <motion.path
@@ -26,11 +26,11 @@ function FloatingPaths({ position }: { position: number }) {
             d={path.d}
             stroke="currentColor"
             strokeWidth={path.width}
-            strokeOpacity={0.08 + path.id * 0.02}
+            strokeOpacity={0.03 + path.id * 0.008}
             initial={{ pathLength: 0.3, opacity: 0.6 }}
             animate={{
               pathLength: 1,
-              opacity: [0.2, 0.45, 0.2],
+              opacity: [0.15, 0.35, 0.15],
               pathOffset: [0, 1, 0],
             }}
             transition={{
@@ -59,14 +59,14 @@ export function BackgroundPaths({
   const words = title.split(" ");
 
   return (
-    <div className="relative w-full overflow-hidden rounded-3xl border border-white/65 bg-white/70 p-8 shadow-glow md:p-12">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_12%,rgba(130,210,230,.3),transparent_34%),radial-gradient(circle_at_86%_16%,rgba(159,225,195,.26),transparent_30%)]" />
+    <div className="relative w-full overflow-hidden rounded-3xl border border-white/[0.08] bg-white/[0.04] p-8 shadow-glow backdrop-blur-xl md:p-12">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_12%,rgba(139,92,246,.12),transparent_34%),radial-gradient(circle_at_86%_16%,rgba(6,182,212,.1),transparent_30%)]" />
       <FloatingPaths position={1} />
       <FloatingPaths position={-1} />
 
       <div className="relative z-10 mx-auto max-w-4xl text-center">
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.9 }}>
-          <h1 className="mb-6 text-4xl font-semibold tracking-tight md:text-6xl [font-family:var(--font-display)]">
+          <h1 className="mb-6 text-4xl font-bold tracking-tight md:text-6xl">
             {words.map((word, wordIndex) => (
               <span key={wordIndex} className="mr-3 inline-block last:mr-0">
                 {word.split("").map((letter, letterIndex) => (
@@ -80,7 +80,7 @@ export function BackgroundPaths({
                       stiffness: 160,
                       damping: 24,
                     }}
-                    className="inline-block bg-gradient-to-r from-neutral-900 to-neutral-700 bg-clip-text text-transparent"
+                    className="inline-block bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent"
                   >
                     {letter}
                   </motion.span>
@@ -89,12 +89,11 @@ export function BackgroundPaths({
             ))}
           </h1>
 
-          <p className="mx-auto mb-8 max-w-2xl text-base text-slate-700 md:text-lg">{subtitle}</p>
+          <p className="mx-auto mb-8 max-w-2xl text-base text-zinc-400 md:text-lg">{subtitle}</p>
 
           <Button
             asChild
-            variant="ghost"
-            className="rounded-2xl border border-black/10 bg-white/90 px-8 py-6 text-base font-semibold text-black shadow-sm hover:bg-white"
+            className="rounded-2xl px-8 py-6 text-base font-semibold"
           >
             <a href={ctaHref}>
               {ctaLabel}

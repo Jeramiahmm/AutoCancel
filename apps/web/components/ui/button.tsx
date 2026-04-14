@@ -4,17 +4,19 @@ import { Slot } from "@radix-ui/react-slot";
 import { cn } from "@/src/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
-        destructive: "bg-danger text-danger-foreground hover:opacity-90",
-        danger: "bg-danger text-danger-foreground hover:opacity-90",
-        secondary: "bg-muted text-foreground hover:bg-muted/80",
-        link: "text-primary underline-offset-4 hover:underline",
-        outline: "border border-input bg-background hover:bg-muted",
-        ghost: "hover:bg-muted",
+        default:
+          "bg-gradient-to-r from-violet-600 to-cyan-500 text-white shadow-glow hover:brightness-110",
+        destructive: "bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20",
+        danger: "bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20",
+        secondary: "bg-white/[0.06] text-zinc-300 border border-white/[0.08] hover:bg-white/[0.1]",
+        link: "text-violet-400 underline-offset-4 hover:underline",
+        outline:
+          "border border-white/[0.1] bg-transparent text-zinc-300 hover:bg-white/[0.05]",
+        ghost: "text-zinc-400 hover:bg-white/[0.05] hover:text-zinc-200",
       },
       size: {
         default: "h-10 px-4 py-2",

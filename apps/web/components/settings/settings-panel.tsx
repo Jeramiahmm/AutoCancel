@@ -103,16 +103,16 @@ export function SettingsPanel({
   return (
     <div className="space-y-6">
       {notice ? (
-        <div className="rounded-xl border border-black/10 bg-[#f7f3ec] px-4 py-3 text-sm text-[#4b463f]">{notice}</div>
+        <div className="rounded-xl border border-white/[0.08] bg-white/[0.04] px-4 py-3 text-sm text-zinc-300">{notice}</div>
       ) : null}
 
-      <Card className="rounded-3xl border-black/10 bg-white/58 backdrop-blur-md">
+      <Card className="rounded-3xl border-white/[0.08] bg-white/[0.04] backdrop-blur-xl">
         <CardHeader>
-          <CardTitle className="text-[#171717]">Profile & timezone</CardTitle>
+          <CardTitle>Profile & timezone</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <label className="text-sm text-muted-foreground" htmlFor="settings-name">
+            <label className="text-sm text-zinc-400" htmlFor="settings-name">
               Name
             </label>
             <Input
@@ -124,21 +124,21 @@ export function SettingsPanel({
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm text-muted-foreground" htmlFor="settings-email">
+            <label className="text-sm text-zinc-400" htmlFor="settings-email">
               Email
             </label>
             <Input id="settings-email" value={email} readOnly />
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm text-muted-foreground" htmlFor="settings-timezone">
+            <label className="text-sm text-zinc-400" htmlFor="settings-timezone">
               Timezone
             </label>
             <select
               id="settings-timezone"
               value={timezone}
               onChange={(event) => setTimezone(event.target.value)}
-              className="h-10 w-full rounded-xl border border-black/15 bg-white/90 px-3 text-sm text-[#141414] outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="h-10 w-full rounded-xl border border-white/[0.08] bg-white/[0.05] px-3 text-sm text-zinc-100 outline-none focus-visible:ring-2 focus-visible:ring-violet-500/40"
             >
               {timezoneOptions.map((option) => (
                 <option key={option} value={option}>
@@ -154,29 +154,29 @@ export function SettingsPanel({
         </CardContent>
       </Card>
 
-      <Card className="rounded-3xl border-black/10 bg-white/58 backdrop-blur-md">
+      <Card className="rounded-3xl border-white/[0.08] bg-white/[0.04] backdrop-blur-xl">
         <CardHeader>
-          <CardTitle className="text-[#171717]">Connected providers</CardTitle>
+          <CardTitle>Connected providers</CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
           {sortedConnections.length === 0 ? (
-            <p className="text-sm text-muted-foreground">No providers connected yet.</p>
+            <p className="text-sm text-zinc-500">No providers connected yet.</p>
           ) : (
             sortedConnections.map((connection) => (
               <div
                 key={connection.id}
-                className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-black/10 bg-white/68 p-3"
+                className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-white/[0.06] bg-white/[0.03] p-3"
               >
                 <div>
-                  <p className="font-medium text-[#171717]">{connection.provider}</p>
-                  <p className="text-sm text-[#6a655d]">
+                  <p className="font-medium text-white">{connection.provider}</p>
+                  <p className="text-sm text-zinc-400">
                     {connection.emailAddress ?? "No email returned"} · {connection.status}
                   </p>
                 </div>
                 <Button
                   variant="outline"
                   size="sm"
-                  className="rounded-full border-black/15 bg-transparent"
+                  className="rounded-full"
                   onClick={() => disconnectConnection(connection.provider)}
                   disabled={pending === `disconnect-${connection.provider}`}
                 >
