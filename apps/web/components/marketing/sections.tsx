@@ -80,25 +80,25 @@ export function LiveMotionDashboard() {
   const progress = Math.max(8, Math.round((Math.min(step + 1, scanItems.length) / scanItems.length) * 100));
 
   return (
-    <div className="relative mx-auto w-full max-w-3xl overflow-hidden rounded-[1.6rem] border border-black/10 bg-[#f7f4ee]/80 p-4 shadow-[0_24px_56px_-36px_rgba(0,0,0,0.45)] backdrop-blur-sm">
+    <div className="relative mx-auto w-full max-w-3xl overflow-hidden rounded-[1.6rem] border border-white/[0.08] bg-white/[0.04] p-4 shadow-glow-lg backdrop-blur-xl">
       <div className="mb-3 flex items-center justify-between">
         <div>
-          <p className="text-[10px] uppercase tracking-[0.24em] text-[#7f7a72]">Live Dashboard</p>
-          <p className="text-sm text-[#2a2825]">Real-time inbox scanning</p>
+          <p className="text-[10px] uppercase tracking-[0.24em] text-zinc-500">Live Dashboard</p>
+          <p className="text-sm text-zinc-300">Real-time inbox scanning</p>
         </div>
         <motion.span
           animate={{ opacity: [0.5, 1, 0.5] }}
           transition={{ duration: 1.2, repeat: Number.POSITIVE_INFINITY }}
-          className="rounded-full border border-black/10 bg-white/60 px-3 py-1 text-xs text-[#3b3935]"
+          className="rounded-full border border-white/[0.08] bg-white/[0.05] px-3 py-1 text-xs text-zinc-400"
         >
           {scanning ? "Scanning..." : "Complete"}
         </motion.span>
       </div>
 
-      <div className="relative overflow-hidden rounded-xl border border-black/10 bg-white/70 p-3">
+      <div className="relative overflow-hidden rounded-xl border border-white/[0.06] bg-white/[0.03] p-3">
         {scanning ? (
           <motion.div
-            className="pointer-events-none absolute inset-x-0 top-0 h-10 bg-gradient-to-b from-black/8 to-transparent"
+            className="pointer-events-none absolute inset-x-0 top-0 h-10 bg-gradient-to-b from-violet-500/10 to-transparent"
             animate={{ y: ["-12%", "420%"] }}
             transition={{ duration: 2.4, ease: "linear", repeat: Number.POSITIVE_INFINITY }}
           />
@@ -111,29 +111,29 @@ export function LiveMotionDashboard() {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.35, delay: index * 0.05 }}
-              className="flex items-center justify-between rounded-lg border border-black/10 bg-[#f8f5ef] px-3 py-2"
+              className="flex items-center justify-between rounded-lg border border-white/[0.06] bg-white/[0.04] px-3 py-2"
             >
               <div>
-                <p className="text-sm font-medium text-[#121212]">{item.service}</p>
-                <p className="text-xs text-[#716d66]">{item.due}</p>
+                <p className="text-sm font-medium text-white">{item.service}</p>
+                <p className="text-xs text-zinc-500">{item.due}</p>
               </div>
               <div className="text-right">
-                <p className="text-sm font-medium text-[#121212]">{item.amount}</p>
-                <p className="text-[11px] text-[#716d66]">{item.state}</p>
+                <p className="text-sm font-medium text-white">{item.amount}</p>
+                <p className="text-[11px] text-zinc-500">{item.state}</p>
               </div>
             </motion.div>
           ))}
         </div>
       </div>
       <div className="mt-3 flex flex-wrap gap-2">
-        <span className="rounded-full border border-black/10 bg-white/60 px-3 py-1 text-xs text-[#5d5952]">Gmail</span>
-        <span className="rounded-full border border-black/10 bg-white/60 px-3 py-1 text-xs text-[#5d5952]">Outlook</span>
-        <span className="rounded-full border border-black/10 bg-white/60 px-3 py-1 text-xs text-[#5d5952]">IMAP</span>
+        <span className="rounded-full border border-white/[0.08] bg-white/[0.05] px-3 py-1 text-xs text-zinc-500">Gmail</span>
+        <span className="rounded-full border border-white/[0.08] bg-white/[0.05] px-3 py-1 text-xs text-zinc-500">Outlook</span>
+        <span className="rounded-full border border-white/[0.08] bg-white/[0.05] px-3 py-1 text-xs text-zinc-500">IMAP</span>
       </div>
 
-      <div className="mt-3 h-1.5 w-full rounded-full bg-black/10">
+      <div className="mt-3 h-1.5 w-full rounded-full bg-white/[0.08]">
         <motion.div
-          className="h-full rounded-full bg-black"
+          className="h-full rounded-full bg-gradient-to-r from-violet-500 to-cyan-400"
           animate={{ width: `${progress}%` }}
           transition={{ duration: 0.45, ease: "easeOut" }}
         />
@@ -148,16 +148,16 @@ export function FeatureBento() {
       {featureCards.map((feature, index) => (
         <Card
           key={feature.title}
-          className={`rounded-3xl border-black/10 bg-white/55 backdrop-blur-sm ${index === 0 ? "md:col-span-2" : ""}`}
+          className={index === 0 ? "md:col-span-2" : ""}
         >
           <CardHeader>
-            <div className="mb-2 inline-flex size-10 items-center justify-center rounded-xl border border-black/10 bg-[#efede8]">
-              <feature.icon className="size-5 text-[#121212]" strokeWidth={1.6} />
+            <div className="mb-2 inline-flex size-10 items-center justify-center rounded-xl border border-white/[0.08] bg-violet-500/10">
+              <feature.icon className="size-5 text-violet-400" strokeWidth={1.6} />
             </div>
-            <CardTitle className="text-[#121212]">{feature.title}</CardTitle>
+            <CardTitle>{feature.title}</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-sm leading-relaxed text-[#65615a]">{feature.body}</p>
+            <p className="text-sm leading-relaxed text-zinc-400">{feature.body}</p>
           </CardContent>
         </Card>
       ))}
@@ -167,8 +167,8 @@ export function FeatureBento() {
 
 export function TrustedMarquee() {
   return (
-    <div className="mx-auto max-w-6xl rounded-3xl border border-black/10 bg-white/55 py-7 shadow-[0_16px_40px_-32px_rgba(0,0,0,0.45)] backdrop-blur-sm">
-      <p className="mb-5 text-center text-xs uppercase tracking-[0.22em] text-[#7f7a72]">Trusted by 10,000+ users</p>
+    <div className="mx-auto max-w-6xl rounded-3xl border border-white/[0.08] bg-white/[0.04] py-7 shadow-glow-lg backdrop-blur-xl">
+      <p className="mb-5 text-center text-xs uppercase tracking-[0.22em] text-zinc-500">Trusted by 10,000+ users</p>
       <div className="relative overflow-hidden">
         <motion.div
           className="flex w-max items-center gap-3"
@@ -178,7 +178,7 @@ export function TrustedMarquee() {
           {[...trustedBy, ...trustedBy].map((logo, index) => (
             <div
               key={`${logo.name}-${index}`}
-              className="inline-flex min-w-[170px] items-center justify-center gap-2 rounded-xl border border-black/10 bg-[#f8f5ef] px-5 py-3 text-[#4f4a44]"
+              className="inline-flex min-w-[170px] items-center justify-center gap-2 rounded-xl border border-white/[0.06] bg-white/[0.04] px-5 py-3 text-zinc-400"
             >
               <logo.icon className="size-4" strokeWidth={1.6} />
               <span className="text-sm font-medium">{logo.name}</span>
@@ -198,50 +198,55 @@ export function PricingCards() {
   return (
     <div className="mx-auto max-w-6xl">
       <div className="mb-8 flex flex-col items-center gap-4">
-        <div className="relative inline-flex rounded-full border border-black/10 bg-white/60 p-1">
+        <div className="relative inline-flex rounded-full border border-white/[0.08] bg-white/[0.04] p-1">
           {(["monthly", "yearly"] as BillingCycle[]).map((cycle) => (
             <button
               key={cycle}
               type="button"
               onClick={() => setBillingCycle(cycle)}
-              className="relative min-w-[110px] rounded-full px-4 py-2 text-sm font-medium capitalize text-[#3d3933]"
+              className="relative min-w-[110px] rounded-full px-4 py-2 text-sm font-medium capitalize text-zinc-400"
             >
               {billingCycle === cycle ? (
                 <motion.span
                   layoutId="billing-toggle"
-                  className="absolute inset-0 -z-10 rounded-full bg-[#ddd8cf]"
+                  className="absolute inset-0 -z-10 rounded-full bg-gradient-to-r from-violet-600 to-cyan-500"
                   transition={{ type: "spring", stiffness: 320, damping: 30 }}
                 />
               ) : null}
-              {cycle}
+              <span className={billingCycle === cycle ? "text-white" : ""}>
+                {cycle}
+              </span>
             </button>
           ))}
         </div>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
-        <article className="rounded-3xl border border-black/10 bg-white/55 p-7 backdrop-blur-sm">
-          <h3 className="text-xl font-semibold text-[#121212]">Free</h3>
-          <p className="mt-3 text-4xl font-semibold text-[#121212]">$0</p>
-          <ul className="mt-6 space-y-2 text-sm text-[#5f5b53]">
+        <article className="rounded-3xl border border-white/[0.08] bg-white/[0.04] p-7 backdrop-blur-xl">
+          <h3 className="text-xl font-semibold text-white">Free</h3>
+          <p className="mt-3 text-4xl font-semibold text-white">$0</p>
+          <ul className="mt-6 space-y-2 text-sm text-zinc-400">
             <li>Track up to 3 active trials</li>
             <li>Email + push reminders</li>
             <li>Dashboard + history</li>
           </ul>
         </article>
 
-        <article className="rounded-3xl border border-black/20 bg-[#f8f5ee] p-7 shadow-[0_22px_50px_-34px_rgba(0,0,0,0.55)]">
-          <h3 className="text-xl font-semibold text-[#121212]">Premium</h3>
-          <p className="mt-3 text-4xl font-semibold text-[#121212]">
-            {price}
-            <span className="ml-1 text-base text-[#5f5b53]">{suffix}</span>
-          </p>
-          <p className="mt-2 text-xs text-[#5f5b53]">{billingCycle === "yearly" ? "Save 16% annually" : "Cancel anytime"}</p>
-          <ul className="mt-6 space-y-2 text-sm text-[#4e4a43]">
-            <li>Unlimited tracked trials</li>
-            <li>Advanced review insights</li>
-            <li>Priority reminder delivery</li>
-          </ul>
+        <article className="relative rounded-3xl border border-violet-500/30 bg-white/[0.06] p-7 shadow-glow backdrop-blur-xl">
+          <div className="pointer-events-none absolute inset-0 rounded-3xl bg-gradient-to-br from-violet-500/5 to-cyan-500/5" />
+          <div className="relative">
+            <h3 className="text-xl font-semibold text-white">Premium</h3>
+            <p className="mt-3 text-4xl font-semibold text-white">
+              {price}
+              <span className="ml-1 text-base text-zinc-400">{suffix}</span>
+            </p>
+            <p className="mt-2 text-xs text-zinc-500">{billingCycle === "yearly" ? "Save 16% annually" : "Cancel anytime"}</p>
+            <ul className="mt-6 space-y-2 text-sm text-zinc-300">
+              <li>Unlimited tracked trials</li>
+              <li>Advanced review insights</li>
+              <li>Priority reminder delivery</li>
+            </ul>
+          </div>
         </article>
       </div>
     </div>

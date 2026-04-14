@@ -9,8 +9,8 @@ export default async function ReviewPage() {
   return (
     <div className="space-y-4">
       <div>
-        <p className="mb-1 text-[11px] uppercase tracking-[0.26em] text-[#8a857c]">Quality Control</p>
-        <h1 className="text-4xl text-[#121212] [font-family:var(--font-display)]">Review Queue</h1>
+        <p className="mb-1 text-[11px] uppercase tracking-[0.26em] text-zinc-500">Quality Control</p>
+        <h1 className="text-4xl font-bold text-white">Review Queue</h1>
       </div>
       <ReviewQueue detections={detections} />
     </div>

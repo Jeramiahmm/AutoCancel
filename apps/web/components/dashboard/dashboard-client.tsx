@@ -64,7 +64,7 @@ async function parseApiResponse(response: Response) {
   return payload as { success?: boolean; data?: unknown };
 }
 
-const panelClass = "rounded-3xl border border-black/10 bg-white/58 backdrop-blur-md";
+const panelClass = "rounded-3xl border border-white/[0.08] bg-white/[0.04] backdrop-blur-xl";
 
 export function DashboardClient({
   initialTrials,
@@ -265,12 +265,12 @@ export function DashboardClient({
     <div className="space-y-6 pb-10">
       <section className="mx-auto flex max-w-6xl items-end justify-between gap-4">
         <div>
-          <p className="mb-1 text-[11px] uppercase tracking-[0.26em] text-[#8a857c]">Subscription Control Center</p>
-          <h1 className="text-4xl text-[#121212] [font-family:var(--font-display)]">Dashboard</h1>
+          <p className="mb-1 text-[11px] uppercase tracking-[0.26em] text-zinc-500">Subscription Control Center</p>
+          <h1 className="text-4xl font-bold text-white">Dashboard</h1>
         </div>
         <Button
           variant="outline"
-          className="rounded-full border-black/15 bg-white/70"
+          className="rounded-full"
           onClick={syncAll}
           disabled={pending === "sync"}
         >
@@ -280,26 +280,26 @@ export function DashboardClient({
       </section>
 
       {notice ? (
-        <div className="rounded-2xl border border-black/10 bg-[#f7f3ec] px-4 py-3 text-sm text-[#4b463f]">{notice}</div>
+        <div className="rounded-2xl border border-white/[0.08] bg-white/[0.04] px-4 py-3 text-sm text-zinc-300">{notice}</div>
       ) : null}
 
       <section className="grid gap-4 md:grid-cols-4">
         {[{ label: "Active trials", value: activeCount }, { label: "Billing soon", value: billingSoon.length }, { label: "Needs review", value: pendingReviewCount }].map((metric) => (
           <Card key={metric.label} className={panelClass}>
             <CardHeader>
-              <CardTitle className="text-sm text-[#6a655d]">{metric.label}</CardTitle>
+              <CardTitle className="text-sm text-zinc-400">{metric.label}</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-4xl font-semibold text-[#161616]">{metric.value}</p>
+              <p className="text-4xl font-semibold text-white">{metric.value}</p>
             </CardContent>
           </Card>
         ))}
         <Card className={panelClass}>
           <CardHeader>
-            <CardTitle className="text-sm text-[#6a655d]">Plan</CardTitle>
+            <CardTitle className="text-sm text-zinc-400">Plan</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
-            <p className="text-lg font-semibold text-[#181818]">{tier === "PREMIUM" ? "Premium" : "Free"}</p>
+            <p className="text-lg font-semibold text-white">{tier === "PREMIUM" ? "Premium" : "Free"}</p>
             {tier === "FREE" ? (
               <Button size="sm" className="rounded-full" onClick={upgrade} disabled={pending === "upgrade"}>
                 {pending === "upgrade" ? "Loading..." : "Upgrade to Premium"}
@@ -308,7 +308,7 @@ export function DashboardClient({
               <Button
                 size="sm"
                 variant="outline"
-                className="rounded-full border-black/15 bg-transparent"
+                className="rounded-full"
                 onClick={openBillingPortal}
                 disabled={pending === "billing-portal"}
               >
@@ -322,28 +322,28 @@ export function DashboardClient({
       <section className="grid gap-4 md:grid-cols-[1.2fr_0.8fr]">
         <Card className={panelClass}>
           <CardHeader>
-            <CardTitle className="text-[#181818]">Active Trials</CardTitle>
-            <p className="text-sm text-[#6a655d]">Track upcoming charges and mark cancelled in one click.</p>
+            <CardTitle>Active Trials</CardTitle>
+            <p className="text-sm text-zinc-400">Track upcoming charges and mark cancelled in one click.</p>
           </CardHeader>
           <CardContent className="space-y-3">
             {activeRows.length === 0 ? (
-              <div className="rounded-xl border border-black/10 bg-white/65 px-4 py-5 text-sm text-[#6a655d]">
+              <div className="rounded-xl border border-white/[0.06] bg-white/[0.03] px-4 py-5 text-sm text-zinc-400">
                 No active trials yet. Connect Gmail or Outlook to start scanning.
               </div>
             ) : (
               activeRows.map((trial) => (
-                <div key={trial.id} className="rounded-2xl border border-black/10 bg-white/70 p-4">
+                <div key={trial.id} className="rounded-2xl border border-white/[0.06] bg-white/[0.03] p-4">
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <p className="text-base font-semibold text-[#151515]">{trial.serviceName}</p>
-                      <p className="text-sm text-[#6a655d]">
+                      <p className="text-base font-semibold text-white">{trial.serviceName}</p>
+                      <p className="text-sm text-zinc-400">
                         Started {formatDate(trial.startDate)} | Bills {formatDate(trial.billingDate)}
                       </p>
                     </div>
                     <Badge variant={statusBadgeVariant(trial.status)}>{trial.status.replace("_", " ")}</Badge>
                   </div>
                   <div className="mt-3 flex items-center justify-between">
-                    <p className="text-sm font-medium text-[#5d5952]">{trial.daysRemaining} days remaining</p>
+                    <p className="text-sm font-medium text-zinc-400">{trial.daysRemaining} days remaining</p>
                     <Button
                       size="sm"
                       variant="danger"
@@ -363,8 +363,8 @@ export function DashboardClient({
         <div className="space-y-4">
           <Card className={panelClass}>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-base text-[#181818]">
-                <Sparkles className="size-4" />
+              <CardTitle className="flex items-center gap-2 text-base">
+                <Sparkles className="size-4 text-violet-400" />
                 Connect providers
               </CardTitle>
             </CardHeader>
@@ -386,8 +386,8 @@ export function DashboardClient({
                 {pending === "oauth-microsoft" ? "Redirecting to Microsoft..." : "Connect Outlook"}
               </Button>
 
-              <div className="rounded-2xl border border-black/10 bg-white/68 p-3">
-                <p className="mb-2 text-xs uppercase tracking-[0.2em] text-[#7d786f]">OAuth2 IMAP fallback</p>
+              <div className="rounded-2xl border border-white/[0.06] bg-white/[0.03] p-3">
+                <p className="mb-2 text-xs uppercase tracking-[0.2em] text-zinc-500">OAuth2 IMAP fallback</p>
                 <div className="space-y-2">
                   <Input
                     value={imapForm.email}
@@ -414,13 +414,13 @@ export function DashboardClient({
                   </Button>
                 </div>
               </div>
-              <p className="text-xs text-[#6a655d]">{connections.length} provider connection(s) active</p>
+              <p className="text-xs text-zinc-500">{connections.length} provider connection(s) active</p>
             </CardContent>
           </Card>
 
           <Card className={panelClass}>
             <CardHeader>
-              <CardTitle className="text-base text-[#181818]">Reminder channels</CardTitle>
+              <CardTitle className="text-base">Reminder channels</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
               <Button
@@ -432,16 +432,16 @@ export function DashboardClient({
                 <Bell className="mr-2 size-4" />
                 {pending === "web-push" ? "Enabling..." : "Enable web push"}
               </Button>
-              <div className="grid grid-cols-3 gap-2 text-xs text-[#6a655d]">
-                <div className="rounded-xl border border-black/10 bg-white/60 p-2">
+              <div className="grid grid-cols-3 gap-2 text-xs text-zinc-400">
+                <div className="rounded-xl border border-white/[0.06] bg-white/[0.03] p-2">
                   <CalendarClock className="mb-1 size-4" />
                   48h alert
                 </div>
-                <div className="rounded-xl border border-black/10 bg-white/60 p-2">
+                <div className="rounded-xl border border-white/[0.06] bg-white/[0.03] p-2">
                   <Zap className="mb-1 size-4" />
                   24h alert
                 </div>
-                <div className="rounded-xl border border-black/10 bg-white/60 p-2">
+                <div className="rounded-xl border border-white/[0.06] bg-white/[0.03] p-2">
                   <Shield className="mb-1 size-4" />
                   OAuth only
                 </div>
@@ -463,33 +463,33 @@ export function DashboardClient({
       <section className="grid gap-4 md:grid-cols-2">
         <Card className={panelClass}>
           <CardHeader>
-            <CardTitle className="text-base text-[#181818]">Cancelled trials</CardTitle>
+            <CardTitle className="text-base">Cancelled trials</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2 text-sm">
             {cancelled.length ? (
               cancelled.slice(0, 5).map((trial) => (
-                <div key={trial.id} className="rounded-xl border border-black/10 bg-white/65 px-3 py-2 text-[#2d2a26]">
+                <div key={trial.id} className="rounded-xl border border-white/[0.06] bg-white/[0.03] px-3 py-2 text-zinc-300">
                   {trial.serviceName}
                 </div>
               ))
             ) : (
-              <p className="text-[#6a655d]">No cancelled trials yet.</p>
+              <p className="text-zinc-500">No cancelled trials yet.</p>
             )}
           </CardContent>
         </Card>
         <Card className={panelClass}>
           <CardHeader>
-            <CardTitle className="text-base text-[#181818]">Completed subscriptions</CardTitle>
+            <CardTitle className="text-base">Completed subscriptions</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2 text-sm">
             {completed.length ? (
               completed.slice(0, 5).map((trial) => (
-                <div key={trial.id} className="rounded-xl border border-black/10 bg-white/65 px-3 py-2 text-[#2d2a26]">
+                <div key={trial.id} className="rounded-xl border border-white/[0.06] bg-white/[0.03] px-3 py-2 text-zinc-300">
                   {trial.serviceName}
                 </div>
               ))
             ) : (
-              <p className="text-[#6a655d]">No completed subscriptions yet.</p>
+              <p className="text-zinc-500">No completed subscriptions yet.</p>
             )}
           </CardContent>
         </Card>

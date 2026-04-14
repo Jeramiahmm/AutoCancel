@@ -5,9 +5,10 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   const session = await requireAuth();
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#efede8] px-4 py-6 text-[#141414] md:px-8 md:py-8">
-      <div className="pointer-events-none absolute inset-0 opacity-55 noise" />
-      <div className="pointer-events-none absolute -left-16 top-0 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.45)_0%,rgba(255,255,255,0)_72%)] blur-3xl" />
+    <div className="relative min-h-screen overflow-hidden bg-[#09090b] px-4 py-6 text-white md:px-8 md:py-8">
+      <div className="pointer-events-none absolute inset-0 opacity-40 noise" />
+      <div className="pointer-events-none absolute -left-32 top-0 h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle,rgba(139,92,246,0.1)_0%,transparent_70%)] blur-3xl" />
+      <div className="pointer-events-none absolute right-[-100px] bottom-0 h-[400px] w-[400px] rounded-full bg-[radial-gradient(circle,rgba(6,182,212,0.06)_0%,transparent_70%)] blur-3xl" />
       <div className="relative mx-auto flex w-full max-w-6xl flex-col gap-6">
         <AppHeader email={session.user.email ?? "account"} />
         {children}

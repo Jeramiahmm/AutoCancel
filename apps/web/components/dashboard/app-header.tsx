@@ -17,14 +17,14 @@ export function AppHeader({ email }: { email: string }) {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-4 z-40 rounded-[1.35rem] border border-black/10 bg-white/60 px-3 py-3 shadow-[0_18px_38px_-30px_rgba(0,0,0,0.45)] backdrop-blur-md">
+    <header className="sticky top-4 z-40 rounded-[1.35rem] border border-white/[0.08] bg-white/[0.04] px-3 py-3 shadow-[0_18px_38px_-30px_rgba(0,0,0,0.6)] backdrop-blur-xl">
       <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3">
-        <Link href="/dashboard" className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-[#f6f3ed] px-3 py-2 text-xs font-medium text-[#2f2c27]">
-          <span className="inline-flex size-6 items-center justify-center rounded-full bg-[#171717] text-[11px] text-white">A</span>
+        <Link href="/dashboard" className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.05] px-3 py-2 text-xs font-medium text-zinc-300">
+          <span className="inline-flex size-6 items-center justify-center rounded-full bg-gradient-to-r from-violet-600 to-cyan-500 text-[11px] text-white">A</span>
           AutoCancel
         </Link>
 
-        <nav className="mx-auto hidden items-center rounded-full border border-black/10 bg-[#f3f0ea] p-1 md:flex">
+        <nav className="mx-auto hidden items-center rounded-full border border-white/[0.06] bg-white/[0.03] p-1 md:flex">
           {navItems.map((item) => {
             const active = pathname === item.href || (item.href !== "/dashboard" && pathname.startsWith(item.href));
             const Icon = item.icon;
@@ -33,8 +33,8 @@ export function AppHeader({ email }: { email: string }) {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-[#3f3b35] transition-colors",
-                  active ? "bg-[#ddd8cf] text-[#111111]" : "hover:text-[#111111]",
+                  "inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors",
+                  active ? "bg-white/[0.1] text-white" : "text-zinc-400 hover:text-white",
                 )}
               >
                 <Icon className="size-4 md:hidden" />
@@ -45,13 +45,13 @@ export function AppHeader({ email }: { email: string }) {
         </nav>
 
         <div className="flex items-center gap-2">
-          <div className="hidden items-center gap-2 rounded-full border border-black/10 bg-white/70 px-3 py-2 text-xs text-[#666159] md:inline-flex">
+          <div className="hidden items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.05] px-3 py-2 text-xs text-zinc-400 md:inline-flex">
             <Sparkles className="size-3.5" />
             {email}
           </div>
           <button
             type="button"
-            className="inline-flex size-9 items-center justify-center rounded-full border border-black/10 bg-white/70 text-[#2f2c27]"
+            className="inline-flex size-9 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.05] text-zinc-400 transition hover:bg-white/[0.08] hover:text-white"
             aria-label="Notifications"
           >
             <Bell className="size-4" />
