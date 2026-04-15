@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import type { TrialCard } from "@/src/shared/contracts";
-import { Bell, CalendarClock, RefreshCw, Shield, Sparkles, Zap } from "lucide-react";
+import { Bell, CalendarClock, RefreshCw, Shield, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -364,7 +364,7 @@ export function DashboardClient({
           <Card className={panelClass}>
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-base">
-                <Sparkles className="size-4 text-violet-400" />
+                <Zap className="size-4 text-zinc-300" />
                 Connect providers
               </CardTitle>
             </CardHeader>

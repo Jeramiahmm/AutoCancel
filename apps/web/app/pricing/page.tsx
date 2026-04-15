@@ -39,7 +39,7 @@ export default function PricingPage() {
                 <p className="min-w-[100px] text-right text-zinc-500">{row.free}</p>
                 <p className="min-w-[120px] text-right font-medium text-white">
                   <span className="inline-flex items-center gap-1">
-                    <CheckCircle2 className="size-4 text-violet-400" />
+                    <CheckCircle2 className="size-4 text-zinc-300" />
                     {row.premium}
                   </span>
                 </p>

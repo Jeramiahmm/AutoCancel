@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bell, LayoutGrid, Settings, Sparkles, History, ListChecks } from "lucide-react";
+import { Bell, LayoutGrid, Settings, Mail, History, ListChecks } from "lucide-react";
 import { cn } from "@/src/lib/utils";
 import { LogoutButton } from "@/components/dashboard/logout-button";
 
@@ -20,7 +20,7 @@ export function AppHeader({ email }: { email: string }) {
     <header className="sticky top-4 z-40 rounded-[1.35rem] border border-white/[0.08] bg-white/[0.04] px-3 py-3 shadow-[0_18px_38px_-30px_rgba(0,0,0,0.6)] backdrop-blur-xl">
       <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3">
         <Link href="/dashboard" className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.05] px-3 py-2 text-xs font-medium text-zinc-300">
-          <span className="inline-flex size-6 items-center justify-center rounded-full bg-gradient-to-r from-violet-600 to-cyan-500 text-[11px] text-white">A</span>
+          <span className="inline-flex size-6 items-center justify-center rounded-full bg-white text-[11px] font-semibold text-zinc-950">A</span>
           AutoCancel
         </Link>
 
@@ -46,7 +46,7 @@ export function AppHeader({ email }: { email: string }) {
 
         <div className="flex items-center gap-2">
           <div className="hidden items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.05] px-3 py-2 text-xs text-zinc-400 md:inline-flex">
-            <Sparkles className="size-3.5" />
+            <Mail className="size-3.5" />
             {email}
           </div>
           <button

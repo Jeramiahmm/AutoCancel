@@ -2,30 +2,74 @@
 
 import * as React from "react";
 import { motion } from "framer-motion";
-import { Bell, BrainCircuit, Mail, MailCheck, MailSearch, ShieldCheck } from "lucide-react";
+import { Bell, Mail, MailSearch, ShieldCheck, Clock, Zap } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 type BillingCycle = "monthly" | "yearly";
 
+/* ── Provider SVG logos ── */
+
+function GmailLogo({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none">
+      <path d="M22 6.25V17.75C22 18.44 21.44 19 20.75 19H18V9.29L12 13.57L6 9.29V19H3.25C2.56 19 2 18.44 2 17.75V6.25C2 4.87 3.59 4.05 4.72 4.87L6 5.83L12 10.11L18 5.83L19.28 4.87C20.41 4.05 22 4.87 22 6.25Z" fill="#EA4335"/>
+      <path d="M6 9.29V19H3.25C2.56 19 2 18.44 2 17.75V6.25C2 4.87 3.59 4.05 4.72 4.87L6 5.83L12 10.11L6 9.29Z" fill="#FBBC05"/>
+      <path d="M18 9.29V19H20.75C21.44 19 22 18.44 22 17.75V6.25C22 4.87 20.41 4.05 19.28 4.87L18 5.83L12 10.11L18 9.29Z" fill="#34A853"/>
+      <path d="M6 9.29L12 13.57L18 9.29L12 10.11L6 9.29Z" fill="#C5221F"/>
+    </svg>
+  );
+}
+
+function OutlookLogo({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none">
+      <path d="M14 3V11.5L22 7.5V4C22 3.45 21.55 3 21 3H14Z" fill="#0364B8"/>
+      <path d="M14 11.5V20L22 16V7.5L14 11.5Z" fill="#0078D4"/>
+      <path d="M14 20H21C21.55 20 22 19.55 22 19V16L14 20Z" fill="#1490DF"/>
+      <path d="M2 7C2 6.45 2.45 6 3 6H12C12.55 6 13 6.45 13 7V17C13 17.55 12.55 18 12 18H3C2.45 18 2 17.55 2 17V7Z" fill="#0078D4"/>
+      <ellipse cx="7.5" cy="12" rx="3" ry="3.5" fill="white"/>
+    </svg>
+  );
+}
+
+function ProtonLogo({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none">
+      <path d="M4 8C4 6.9 4.9 6 6 6H18C19.1 6 20 6.9 20 8V16C20 17.1 19.1 18 18 18H6C4.9 18 4 17.1 4 16V8Z" fill="#6D4AFF"/>
+      <path d="M4 8L12 13L20 8" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M12 13V18" stroke="white" strokeWidth="0.5" strokeOpacity="0.3"/>
+    </svg>
+  );
+}
+
+function FastmailLogo({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none">
+      <rect x="3" y="6" width="18" height="12" rx="2" fill="#69A3F0"/>
+      <path d="M3 8L12 14L21 8" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
+
 export const featureCards = [
   {
-    title: "Inbox Intelligence",
-    body: "Scans Gmail, Outlook, and OAuth2 IMAP for trial confirmations and renewal notices.",
+    title: "Inbox Scanning",
+    body: "Connects to Gmail, Outlook, and IMAP to find trial confirmations and renewal notices automatically.",
     icon: MailSearch,
   },
   {
-    title: "AI Extraction",
-    body: "Extracts trial duration, billing date, service name, and cost with confidence scoring.",
-    icon: BrainCircuit,
+    title: "Smart Extraction",
+    body: "Pulls out the trial duration, billing date, service name, and cost from your emails.",
+    icon: Zap,
   },
   {
-    title: "Charge Prevention",
-    body: "Schedules alerts 48h and 24h before billing in your local timezone.",
+    title: "Timely Alerts",
+    body: "Sends you reminders 48 hours and 24 hours before any charge hits, in your local timezone.",
     icon: Bell,
   },
   {
-    title: "Secure Integrations",
-    body: "OAuth-only access, encrypted tokens at rest, and no stored mailbox passwords.",
+    title: "Secure by Default",
+    body: "OAuth-only access, encrypted tokens at rest, and we never store your email password.",
     icon: ShieldCheck,
   },
 ];
@@ -37,12 +81,11 @@ const scanItems = [
   { service: "Grammarly Premium", due: "Charges in 13 days", amount: "$12.00", state: "ACTIVE" },
 ];
 
-const trustedBy = [
-  { name: "Gmail", icon: Mail },
-  { name: "Outlook", icon: MailCheck },
-  { name: "Proton", icon: ShieldCheck },
-  { name: "Fastmail", icon: Mail },
-  { name: "Hey", icon: MailCheck },
+const trustedProviders = [
+  { name: "Gmail", Logo: GmailLogo },
+  { name: "Outlook", Logo: OutlookLogo },
+  { name: "Proton Mail", Logo: ProtonLogo },
+  { name: "Fastmail", Logo: FastmailLogo },
 ];
 
 export function Reveal({
@@ -80,11 +123,11 @@ export function LiveMotionDashboard() {
   const progress = Math.max(8, Math.round((Math.min(step + 1, scanItems.length) / scanItems.length) * 100));
 
   return (
-    <div className="relative mx-auto w-full max-w-3xl overflow-hidden rounded-[1.6rem] border border-white/[0.08] bg-white/[0.04] p-4 shadow-glow-lg backdrop-blur-xl">
+    <div className="relative mx-auto w-full max-w-3xl overflow-hidden rounded-[1.6rem] border border-white/[0.08] bg-white/[0.04] p-4 backdrop-blur-xl">
       <div className="mb-3 flex items-center justify-between">
         <div>
-          <p className="text-[10px] uppercase tracking-[0.24em] text-zinc-500">Live Dashboard</p>
-          <p className="text-sm text-zinc-300">Real-time inbox scanning</p>
+          <p className="text-[10px] uppercase tracking-[0.24em] text-zinc-500">Live Preview</p>
+          <p className="text-sm text-zinc-300">Inbox scanning in real-time</p>
         </div>
         <motion.span
           animate={{ opacity: [0.5, 1, 0.5] }}
@@ -98,7 +141,7 @@ export function LiveMotionDashboard() {
       <div className="relative overflow-hidden rounded-xl border border-white/[0.06] bg-white/[0.03] p-3">
         {scanning ? (
           <motion.div
-            className="pointer-events-none absolute inset-x-0 top-0 h-10 bg-gradient-to-b from-violet-500/10 to-transparent"
+            className="pointer-events-none absolute inset-x-0 top-0 h-10 bg-gradient-to-b from-white/[0.06] to-transparent"
             animate={{ y: ["-12%", "420%"] }}
             transition={{ duration: 2.4, ease: "linear", repeat: Number.POSITIVE_INFINITY }}
           />
@@ -125,18 +168,61 @@ export function LiveMotionDashboard() {
           ))}
         </div>
       </div>
-      <div className="mt-3 flex flex-wrap gap-2">
-        <span className="rounded-full border border-white/[0.08] bg-white/[0.05] px-3 py-1 text-xs text-zinc-500">Gmail</span>
-        <span className="rounded-full border border-white/[0.08] bg-white/[0.05] px-3 py-1 text-xs text-zinc-500">Outlook</span>
-        <span className="rounded-full border border-white/[0.08] bg-white/[0.05] px-3 py-1 text-xs text-zinc-500">IMAP</span>
-      </div>
 
       <div className="mt-3 h-1.5 w-full rounded-full bg-white/[0.08]">
         <motion.div
-          className="h-full rounded-full bg-gradient-to-r from-violet-500 to-cyan-400"
+          className="h-full rounded-full bg-white/80"
           animate={{ width: `${progress}%` }}
           transition={{ duration: 0.45, ease: "easeOut" }}
         />
+      </div>
+    </div>
+  );
+}
+
+export function HowItWorks() {
+  const steps = [
+    {
+      number: "01",
+      title: "Connect your email",
+      description: "Sign in with Google or link your mailbox via OAuth. We never see your password.",
+      icon: Mail,
+    },
+    {
+      number: "02",
+      title: "We scan for subscriptions",
+      description: "AutoCancel reads confirmation emails, receipts, and renewal notices to find every active trial and subscription.",
+      icon: MailSearch,
+    },
+    {
+      number: "03",
+      title: "Get reminded before charges",
+      description: "You'll get alerts 48 hours and 24 hours before any trial converts to a paid subscription.",
+      icon: Clock,
+    },
+    {
+      number: "04",
+      title: "Cancel with confidence",
+      description: "Review everything in your dashboard. Cancel what you don't need. Keep what you love. Never get surprised.",
+      icon: ShieldCheck,
+    },
+  ];
+
+  return (
+    <div className="mx-auto max-w-4xl">
+      <div className="grid gap-6 md:grid-cols-2">
+        {steps.map((step) => (
+          <div key={step.number} className="rounded-2xl border border-white/[0.08] bg-white/[0.03] p-6">
+            <div className="mb-4 flex items-center gap-3">
+              <span className="inline-flex size-10 items-center justify-center rounded-full border border-white/[0.1] bg-white/[0.05] text-sm font-semibold text-zinc-300">
+                {step.number}
+              </span>
+              <step.icon className="size-5 text-zinc-500" strokeWidth={1.5} />
+            </div>
+            <h3 className="mb-2 text-lg font-semibold text-white">{step.title}</h3>
+            <p className="text-sm leading-relaxed text-zinc-400">{step.description}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -151,8 +237,8 @@ export function FeatureBento() {
           className={index === 0 ? "md:col-span-2" : ""}
         >
           <CardHeader>
-            <div className="mb-2 inline-flex size-10 items-center justify-center rounded-xl border border-white/[0.08] bg-violet-500/10">
-              <feature.icon className="size-5 text-violet-400" strokeWidth={1.6} />
+            <div className="mb-2 inline-flex size-10 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.06]">
+              <feature.icon className="size-5 text-zinc-400" strokeWidth={1.6} />
             </div>
             <CardTitle>{feature.title}</CardTitle>
           </CardHeader>
@@ -167,7 +253,7 @@ export function FeatureBento() {
 
 export function TrustedMarquee() {
   return (
-    <div className="mx-auto max-w-6xl rounded-3xl border border-white/[0.08] bg-white/[0.04] py-7 shadow-glow-lg backdrop-blur-xl">
+    <div className="mx-auto max-w-6xl rounded-3xl border border-white/[0.08] bg-white/[0.04] py-7 backdrop-blur-xl">
       <p className="mb-5 text-center text-xs uppercase tracking-[0.22em] text-zinc-500">Trusted by 10,000+ users</p>
       <div className="relative overflow-hidden">
         <motion.div
@@ -175,13 +261,13 @@ export function TrustedMarquee() {
           animate={{ x: ["0%", "-50%"] }}
           transition={{ duration: 24, ease: "linear", repeat: Number.POSITIVE_INFINITY }}
         >
-          {[...trustedBy, ...trustedBy].map((logo, index) => (
+          {[...trustedProviders, ...trustedProviders].map((provider, index) => (
             <div
-              key={`${logo.name}-${index}`}
-              className="inline-flex min-w-[170px] items-center justify-center gap-2 rounded-xl border border-white/[0.06] bg-white/[0.04] px-5 py-3 text-zinc-400"
+              key={`${provider.name}-${index}`}
+              className="inline-flex min-w-[170px] items-center justify-center gap-2.5 rounded-xl border border-white/[0.06] bg-white/[0.04] px-5 py-3"
             >
-              <logo.icon className="size-4" strokeWidth={1.6} />
-              <span className="text-sm font-medium">{logo.name}</span>
+              <provider.Logo className="size-5" />
+              <span className="text-sm font-medium text-zinc-300">{provider.name}</span>
             </div>
           ))}
         </motion.div>
@@ -209,11 +295,11 @@ export function PricingCards() {
               {billingCycle === cycle ? (
                 <motion.span
                   layoutId="billing-toggle"
-                  className="absolute inset-0 -z-10 rounded-full bg-gradient-to-r from-violet-600 to-cyan-500"
+                  className="absolute inset-0 -z-10 rounded-full bg-white"
                   transition={{ type: "spring", stiffness: 320, damping: 30 }}
                 />
               ) : null}
-              <span className={billingCycle === cycle ? "text-white" : ""}>
+              <span className={billingCycle === cycle ? "text-zinc-950" : ""}>
                 {cycle}
               </span>
             </button>
@@ -232,8 +318,7 @@ export function PricingCards() {
           </ul>
         </article>
 
-        <article className="relative rounded-3xl border border-violet-500/30 bg-white/[0.06] p-7 shadow-glow backdrop-blur-xl">
-          <div className="pointer-events-none absolute inset-0 rounded-3xl bg-gradient-to-br from-violet-500/5 to-cyan-500/5" />
+        <article className="relative rounded-3xl border border-white/[0.15] bg-white/[0.06] p-7 backdrop-blur-xl">
           <div className="relative">
             <h3 className="text-xl font-semibold text-white">Premium</h3>
             <p className="mt-3 text-4xl font-semibold text-white">

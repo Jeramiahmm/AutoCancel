@@ -17,7 +17,7 @@ export default async function AuthErrorPage({
     <main className="relative min-h-screen overflow-hidden bg-[#09090b] px-4 py-12 text-white md:px-6">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 opacity-40 noise" />
-        <div className="absolute -left-32 top-0 h-[400px] w-[400px] rounded-full bg-[radial-gradient(circle,rgba(139,92,246,0.1)_0%,transparent_70%)] blur-3xl" />
+        <div className="absolute -left-32 top-0 h-[400px] w-[400px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.03)_0%,transparent_70%)] blur-3xl" />
       </div>
       <div className="relative mx-auto flex min-h-[70vh] max-w-2xl items-center">
         <div className="w-full rounded-2xl border border-white/[0.08] bg-white/[0.04] p-7 backdrop-blur-xl">

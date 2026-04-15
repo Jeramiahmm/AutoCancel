@@ -60,7 +60,7 @@ export function BackgroundPaths({
 
   return (
     <div className="relative w-full overflow-hidden rounded-3xl border border-white/[0.08] bg-white/[0.04] p-8 shadow-glow backdrop-blur-xl md:p-12">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_12%,rgba(139,92,246,.12),transparent_34%),radial-gradient(circle_at_86%_16%,rgba(6,182,212,.1),transparent_30%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_12%,rgba(255,255,255,.04),transparent_34%),radial-gradient(circle_at_86%_16%,rgba(255,255,255,.03),transparent_30%)]" />
       <FloatingPaths position={1} />
       <FloatingPaths position={-1} />
 
