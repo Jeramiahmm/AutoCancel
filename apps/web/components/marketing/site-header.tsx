@@ -24,7 +24,8 @@ export function SiteHeader() {
   return (
     <header className="pointer-events-none sticky top-4 z-40 flex items-center justify-center px-3">
       <div className="pointer-events-auto grid w-full max-w-6xl grid-cols-[1fr_auto_1fr] items-center gap-3">
-        <Link href="/" className="justify-self-start text-xs font-semibold uppercase tracking-[0.18em] text-white/70">
+        <Link href="/" className="justify-self-start inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-white/70">
+          <span className="inline-flex size-6 items-center justify-center rounded-full bg-emerald-500 text-[10px] font-bold text-white">A</span>
           AutoCancel
         </Link>
 

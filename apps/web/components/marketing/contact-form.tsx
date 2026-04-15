@@ -80,7 +80,7 @@ export function ContactForm() {
       <textarea
         required
         minLength={10}
-        className="min-h-[140px] w-full rounded-xl border border-white/[0.08] bg-white/[0.05] px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-500 outline-none focus-visible:ring-2 focus-visible:ring-white/20 focus-visible:border-white/[0.15]"
+        className="min-h-[140px] w-full rounded-xl border border-white/[0.08] bg-white/[0.05] px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-500 outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40 focus-visible:border-emerald-500/30"
         placeholder="How can we help?"
         value={form.message}
         onChange={(event) => setForm((prev) => ({ ...prev, message: event.target.value }))}

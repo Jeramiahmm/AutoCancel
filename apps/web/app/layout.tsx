@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description:
     "AutoCancel detects free trials and subscriptions from your inbox, then reminds you before you get charged.",
   metadataBase: new URL("https://auto-cancels.vercel.app"),
-  themeColor: "#09090b",
+  themeColor: "#0a0c0f",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

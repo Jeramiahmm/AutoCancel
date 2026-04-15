@@ -364,7 +364,7 @@ export function DashboardClient({
           <Card className={panelClass}>
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-base">
-                <Zap className="size-4 text-zinc-300" />
+                <Zap className="size-4 text-emerald-400" />
                 Connect providers
               </CardTitle>
             </CardHeader>

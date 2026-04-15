@@ -69,8 +69,8 @@ const config: Config = {
         "pulse-glow": "pulse-glow 2s ease-in-out infinite",
       },
       boxShadow: {
-        glow: "0 10px 60px -18px rgba(255, 255, 255, 0.08)",
-        "glow-lg": "0 20px 80px -20px rgba(255, 255, 255, 0.06)",
+        glow: "0 10px 60px -18px rgba(16, 185, 129, 0.15)",
+        "glow-lg": "0 20px 80px -20px rgba(16, 185, 129, 0.12)",
       },
       backgroundSize: {
         "200%": "200% 200%",

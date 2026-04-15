@@ -44,8 +44,8 @@ export default function SecurityPage() {
           {controls.map((control) => (
             <Card key={control.title}>
               <CardHeader>
-                <div className="mb-2 inline-flex size-10 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.06]">
-                  <control.icon className="size-5 text-zinc-300" strokeWidth={1.6} />
+                <div className="mb-2 inline-flex size-10 items-center justify-center rounded-xl border border-emerald-500/20 bg-emerald-500/10">
+                  <control.icon className="size-5 text-emerald-400" strokeWidth={1.6} />
                 </div>
                 <CardTitle>{control.title}</CardTitle>
               </CardHeader>

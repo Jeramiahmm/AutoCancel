@@ -138,7 +138,7 @@ export function SettingsPanel({
               id="settings-timezone"
               value={timezone}
               onChange={(event) => setTimezone(event.target.value)}
-              className="h-10 w-full rounded-xl border border-white/[0.08] bg-white/[0.05] px-3 text-sm text-zinc-100 outline-none focus-visible:ring-2 focus-visible:ring-white/20"
+              className="h-10 w-full rounded-xl border border-white/[0.08] bg-white/[0.05] px-3 text-sm text-zinc-100 outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40"
             >
               {timezoneOptions.map((option) => (
                 <option key={option} value={option}>

@@ -132,7 +132,7 @@ export function LiveMotionDashboard() {
         <motion.span
           animate={{ opacity: [0.5, 1, 0.5] }}
           transition={{ duration: 1.2, repeat: Number.POSITIVE_INFINITY }}
-          className="rounded-full border border-white/[0.08] bg-white/[0.05] px-3 py-1 text-xs text-zinc-400"
+          className="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-400"
         >
           {scanning ? "Scanning..." : "Complete"}
         </motion.span>
@@ -141,7 +141,7 @@ export function LiveMotionDashboard() {
       <div className="relative overflow-hidden rounded-xl border border-white/[0.06] bg-white/[0.03] p-3">
         {scanning ? (
           <motion.div
-            className="pointer-events-none absolute inset-x-0 top-0 h-10 bg-gradient-to-b from-white/[0.06] to-transparent"
+            className="pointer-events-none absolute inset-x-0 top-0 h-10 bg-gradient-to-b from-emerald-500/[0.08] to-transparent"
             animate={{ y: ["-12%", "420%"] }}
             transition={{ duration: 2.4, ease: "linear", repeat: Number.POSITIVE_INFINITY }}
           />
@@ -171,7 +171,7 @@ export function LiveMotionDashboard() {
 
       <div className="mt-3 h-1.5 w-full rounded-full bg-white/[0.08]">
         <motion.div
-          className="h-full rounded-full bg-white/80"
+          className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-emerald-400"
           animate={{ width: `${progress}%` }}
           transition={{ duration: 0.45, ease: "easeOut" }}
         />
@@ -214,10 +214,10 @@ export function HowItWorks() {
         {steps.map((step) => (
           <div key={step.number} className="rounded-2xl border border-white/[0.08] bg-white/[0.03] p-6">
             <div className="mb-4 flex items-center gap-3">
-              <span className="inline-flex size-10 items-center justify-center rounded-full border border-white/[0.1] bg-white/[0.05] text-sm font-semibold text-zinc-300">
+              <span className="inline-flex size-10 items-center justify-center rounded-full border border-emerald-500/20 bg-emerald-500/10 text-sm font-semibold text-emerald-400">
                 {step.number}
               </span>
-              <step.icon className="size-5 text-zinc-500" strokeWidth={1.5} />
+              <step.icon className="size-5 text-emerald-400/60" strokeWidth={1.5} />
             </div>
             <h3 className="mb-2 text-lg font-semibold text-white">{step.title}</h3>
             <p className="text-sm leading-relaxed text-zinc-400">{step.description}</p>
@@ -237,8 +237,8 @@ export function FeatureBento() {
           className={index === 0 ? "md:col-span-2" : ""}
         >
           <CardHeader>
-            <div className="mb-2 inline-flex size-10 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.06]">
-              <feature.icon className="size-5 text-zinc-400" strokeWidth={1.6} />
+            <div className="mb-2 inline-flex size-10 items-center justify-center rounded-xl border border-emerald-500/20 bg-emerald-500/10">
+              <feature.icon className="size-5 text-emerald-400" strokeWidth={1.6} />
             </div>
             <CardTitle>{feature.title}</CardTitle>
           </CardHeader>
@@ -295,11 +295,11 @@ export function PricingCards() {
               {billingCycle === cycle ? (
                 <motion.span
                   layoutId="billing-toggle"
-                  className="absolute inset-0 -z-10 rounded-full bg-white"
+                  className="absolute inset-0 -z-10 rounded-full bg-emerald-500"
                   transition={{ type: "spring", stiffness: 320, damping: 30 }}
                 />
               ) : null}
-              <span className={billingCycle === cycle ? "text-zinc-950" : ""}>
+              <span className={billingCycle === cycle ? "text-white" : ""}>
                 {cycle}
               </span>
             </button>
@@ -318,7 +318,8 @@ export function PricingCards() {
           </ul>
         </article>
 
-        <article className="relative rounded-3xl border border-white/[0.15] bg-white/[0.06] p-7 backdrop-blur-xl">
+        <article className="relative rounded-3xl border border-emerald-500/25 bg-white/[0.06] p-7 backdrop-blur-xl">
+          <span className="absolute -top-3 right-6 rounded-full bg-emerald-500 px-3 py-1 text-xs font-semibold text-white">Popular</span>
           <div className="relative">
             <h3 className="text-xl font-semibold text-white">Premium</h3>
             <p className="mt-3 text-4xl font-semibold text-white">

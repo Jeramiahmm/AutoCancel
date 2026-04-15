@@ -133,7 +133,7 @@ export function SignInCard({
 
         <div className="grid gap-2 rounded-xl border border-white/[0.06] bg-white/[0.03] p-3 text-xs text-zinc-500">
           <p className="inline-flex items-center gap-2">
-            <ShieldCheck className="size-3.5 text-zinc-300" />
+            <ShieldCheck className="size-3.5 text-emerald-400" />
             OAuth-only access and encrypted token storage
           </p>
         </div>
