@@ -148,24 +148,24 @@ export function LiveMotionDashboard() {
         ) : null}
 
         <div className="space-y-2">
-          {visible.map((item, index) => (
-            <motion.div
-              key={item.service}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35, delay: index * 0.05 }}
-              className="flex items-center justify-between rounded-lg border border-white/[0.06] bg-white/[0.04] px-3 py-2"
-            >
-              <div>
-                <p className="text-sm font-medium text-white">{item.service}</p>
-                <p className="text-xs text-zinc-500">{item.due}</p>
+          {scanItems.map((item, index) => {
+            const isVisible = index <= step;
+            return (
+              <div
+                key={item.service}
+                className={`flex items-center justify-between rounded-lg border border-white/[0.06] bg-white/[0.04] px-3 py-2 transition-opacity duration-300 ${isVisible ? "opacity-100" : "opacity-0"}`}
+              >
+                <div>
+                  <p className="text-sm font-medium text-white">{item.service}</p>
+                  <p className="text-xs text-zinc-500">{item.due}</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-sm font-medium text-white">{item.amount}</p>
+                  <p className="text-[11px] text-zinc-500">{item.state}</p>
+                </div>
               </div>
-              <div className="text-right">
-                <p className="text-sm font-medium text-white">{item.amount}</p>
-                <p className="text-[11px] text-zinc-500">{item.state}</p>
-              </div>
-            </motion.div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
